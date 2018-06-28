@@ -10,6 +10,40 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     public static final int SCALE = 2;
     public static final String TITLE = "BrickBBBreaker";
 
+    private boolean running = false;
+    private Thread thread;
+
+    private synchronized void start() {
+        if(running)
+            return;
+
+        running = true;
+        thread = new Thread(this);
+        thread.start();
+    }
+
+    private synchronized void stop() {
+        if(!running)
+            return;
+
+        running = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(1);
+    }
+
+
+    public void run() {
+        while(running) {
+            // The game loop
+            System.out.println("WORKING");
+        }
+        stop();
+    }
+
     public static void main (String args[]) {
         BrickBBBreaker brickBBBreaker = new BrickBBBreaker();
 
@@ -24,10 +58,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
 
-    @Override
-    public void run() {
-
+        brickBBBreaker.start();
     }
 }
