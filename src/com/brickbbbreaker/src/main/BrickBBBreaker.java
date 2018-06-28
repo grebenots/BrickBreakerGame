@@ -37,11 +37,51 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
 
     public void run() {
+        long lastTime = System.nanoTime();
+        final double targetFPS = 60.0;
+        double ns = 1000000000 / targetFPS;
+        double delta = 0;
+        int updates = 0;
+        int frames = 0;
+        long timer = System.currentTimeMillis();
+
         while(running) {
-            // The game loop
-            System.out.println("WORKING");
+            trackFPS();
+
+            /* The following section of code limits updating to the target frames per second */
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+
+            if(delta >= 1) {
+                tick();
+                updates++;
+                delta--;
+            }
+            render();
+            frames++;
+
+            if(System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                System.out.println(updates + " Ticks, FPS " + frames);
+                updates = 0;
+                frames = 0;
+            }
+            /* End section */
         }
         stop();
+    }
+
+    private void tick() {
+
+    }
+
+    private void render() {
+
+    }
+
+    private void trackFPS() {
+
     }
 
     public static void main (String args[]) {
