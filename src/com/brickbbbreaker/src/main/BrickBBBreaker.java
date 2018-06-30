@@ -18,7 +18,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private BufferedImage spriteSheet = null;
 
-    private BufferedImage player;
+    private Player player;
 
     public void init() {
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -28,8 +28,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
             e.printStackTrace();
         }
 
-        SpriteSheet ss = new SpriteSheet(spriteSheet);
-        player = ss.grabImage(1,1,32,32);
+        player = new Player(200,200,this);
     }
 
     private synchronized void start() {
@@ -93,7 +92,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        player.tick();
     }
 
     private void render() {
@@ -104,14 +103,13 @@ public class BrickBBBreaker extends Canvas implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        //////////////////////////////////
+        ///  All rendering goes here  ////
 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(player, 100, 100, this);
-        // All rendering goes here
+        player.render(g);
 
 
-        //////////////////////////////////
+        ///  End of rendering section  ///
         g.dispose();
         bs.show();
     }
@@ -136,5 +134,9 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         frame.setVisible(true);
 
         brickBBBreaker.start();
+    }
+
+    public BufferedImage getSpriteSheet() {
+        return spriteSheet;
     }
 }
