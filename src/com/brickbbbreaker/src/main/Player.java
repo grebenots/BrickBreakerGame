@@ -11,7 +11,9 @@ public class Player {
     private double velocityX = 0;
     private double velocityY = 0;
 
-    private BufferedImage player;
+    private BufferedImage playerCenter;
+    private BufferedImage playerLeft;
+    private BufferedImage playerRight;
 
     public Player(double x, double y, BrickBBBreaker game) {
         this.x = x;
@@ -19,7 +21,9 @@ public class Player {
 
         SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
 
-        player = ss.grabImage(1,1,32,32);
+        playerCenter = ss.grabImage(2,1,32,32);
+        playerLeft = ss.grabImage(1,1,32,32);
+        playerRight = ss.grabImage(3,1,32,32);
     }
 
     public void tick() {
@@ -28,7 +32,9 @@ public class Player {
     }
 
     public void render(Graphics g) {
-        g.drawImage(player,(int)x,(int)y,null);
+        g.drawImage(playerLeft, (int)x - 32, (int)y, null);
+        g.drawImage(playerCenter,(int)x,(int)y,null);
+        g.drawImage(playerRight, (int)x + 32, (int)y, null);
     }
 
     public double getX() {
