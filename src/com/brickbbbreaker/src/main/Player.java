@@ -8,6 +8,9 @@ public class Player {
     private double x;
     private double y;
 
+    private double velocityX = 0;
+    private double velocityY = 0;
+
     private BufferedImage player;
 
     public Player(double x, double y, BrickBBBreaker game) {
@@ -20,7 +23,8 @@ public class Player {
     }
 
     public void tick() {
-
+        x += velocityX;
+        y += velocityY;
     }
 
     public void render(Graphics g) {
@@ -41,6 +45,14 @@ public class Player {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public void setVelocityY(double velocityY) {
+        this.velocityY = velocityY;
     }
 
 }

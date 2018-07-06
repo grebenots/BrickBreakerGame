@@ -23,6 +23,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     private Player player;
 
     public void init() {
+        requestFocus();
         BufferedImageLoader loader = new BufferedImageLoader();
         try {
             spriteSheet = loader.loadImage("spriteSheet.png");
@@ -126,9 +127,9 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
-            player.setX(player.getX() + 5);
+            player.setVelocityX(5);
         } else if(key == KeyEvent.VK_LEFT) {
-            player.setX(player.getX() - 5);
+            player.setVelocityX(-5);
         } else if(key == KeyEvent.VK_DOWN) {
 
         } else if(key == KeyEvent.VK_UP) {
@@ -140,9 +141,9 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
-
+            player.setVelocityX(0);
         } else if(key == KeyEvent.VK_LEFT) {
-
+            player.setVelocityX(0);
         } else if(key == KeyEvent.VK_DOWN) {
 
         } else if(key == KeyEvent.VK_UP) {
