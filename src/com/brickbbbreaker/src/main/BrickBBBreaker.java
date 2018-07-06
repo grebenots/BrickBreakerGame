@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.IOException;
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class BrickBBBreaker extends Canvas implements Runnable {
 
@@ -27,6 +29,8 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        addKeyListener(new KeyInput(this));
 
         player = new Player(200,200,this);
     }
@@ -116,6 +120,34 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
     private void trackFPS() {
 
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT) {
+            player.setX(player.getX() + 5);
+        } else if(key == KeyEvent.VK_LEFT) {
+            player.setX(player.getX() - 5);
+        } else if(key == KeyEvent.VK_DOWN) {
+
+        } else if(key == KeyEvent.VK_UP) {
+
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT) {
+
+        } else if(key == KeyEvent.VK_LEFT) {
+
+        } else if(key == KeyEvent.VK_DOWN) {
+
+        } else if(key == KeyEvent.VK_UP) {
+
+        }
     }
 
     public static void main (String args[]) {
