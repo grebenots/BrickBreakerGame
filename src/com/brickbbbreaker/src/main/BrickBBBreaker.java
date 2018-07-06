@@ -33,7 +33,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         addKeyListener(new KeyInput(this));
 
-        player = new Player(200,200,this);
+        player = new Player(220,600,this);
     }
 
     private synchronized void start() {
