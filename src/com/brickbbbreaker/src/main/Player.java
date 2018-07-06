@@ -29,6 +29,11 @@ public class Player {
     public void tick() {
         x += velocityX;
         y += velocityY;
+
+        if(x <= 0 + 16)
+            x = 0 + 16;
+        if(x >= 440 - 16)
+            x = 440 - 16;
     }
 
     public void render(Graphics g) {
