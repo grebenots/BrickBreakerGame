@@ -14,6 +14,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
     public static final Generic2D<Integer> SPRITE_SIZE = new Generic2D<Integer>(32, 32);
     public static final Generic2D<Integer> BRICK_SIZE = new Generic2D<Integer>(32, SPRITE_SIZE.getY() / 2);
     public static final Generic2D<Double> WINDOW_SIZE = new Generic2D<Double>((double) SPRITE_SIZE.getX() * 13, ((double) SPRITE_SIZE.getX() * 13) * 12 / 9);
+    public static final Generic2D<Double> WINDOW_CENTER = new Generic2D<Double>(WINDOW_SIZE.getX() / 2, WINDOW_SIZE.getY() / 2);
     public static final double SCALE = 1;
     public static final String TITLE = "Brick Breaker Game";
 
@@ -30,6 +31,14 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
     // Other needed things
     private Player player;
+
+    // Test stuff to delete
+    private Brick brick1;
+    private Brick brick2;
+    private Brick brick3;
+    private Brick brick4;
+    private Brick brick5;
+    private Brick brick6;
 
     // Application entry
     public static void main(String args[]) {
@@ -65,9 +74,15 @@ public class BrickBreakerGame extends Canvas implements Runnable {
         addKeyListener(new KeyInput(this));
 
         // Setup logic and components
-        double centerX = WINDOW_SIZE.getX() / 2;
-        player = new Player(centerX - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);
+        player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);
 
+        // Brick Testing
+        brick1 = new Brick(1,1, entitySheet);
+        brick2 = new Brick(2,1, entitySheet);
+        brick3 = new Brick(3,1, entitySheet);
+        brick4 = new Brick(2,2, entitySheet);
+        brick5 = new Brick(3,2, entitySheet);
+        brick6 = new Brick(11,2, entitySheet);
 
         //gameController = new Controller(this);
     }
@@ -159,8 +174,16 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 //        gg.setComposite(ac);
 //        // End opacity test
 
+        BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+        g.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
         player.render(g);
 //        controller.render(g);
+        brick1.render(g);
+        brick2.render(g);
+        brick3.render(g);
+        brick4.render(g);
+        brick5.render(g);
+        brick6.render(g);
 
         ///  End of rendering section  ///
 

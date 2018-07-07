@@ -1,8 +1,5 @@
 package com.stoneberg.brickbreaker;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 
 public class Player extends Entity {
@@ -16,8 +13,7 @@ public class Player extends Entity {
         position = new Generic2D<>(x,y);
         velocity = new Generic2D<>(0.0,0.0);
 
-        BufferedImage test = spriteSheet.getSprite(1,1,32,32);
-        sprites.put("paddleLeft", test);
+        sprites.put("paddleLeft", spriteSheet.getSprite(1,1,32,32));
         sprites.put("paddleCenter", spriteSheet.getSprite(2,1,32,32));
         sprites.put("paddleRight", spriteSheet.getSprite(3,1,32,32));
     }
