@@ -24,8 +24,9 @@ public class BrickBreakerGame extends Canvas implements Runnable {
     // Logic
     private Controller gameController;
 
-    // Graphics
-    private Textures textures;
+    // Sprite Sheets
+    private SpriteSheet entitySheet;
+    private SpriteSheet uiSheet;
 
     // Other needed things
     private Player player;
@@ -54,7 +55,8 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
         // Attempt to get resources for the game
         try {
-            textures = new Textures();
+            entitySheet = new SpriteSheet("entitySheet.png");
+            uiSheet = new SpriteSheet("uiSheet.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +65,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
         addKeyListener(new KeyInput(this));
 
         // Setup logic and components
-        //player = new Player(120,500, this);
+        player = new Player();
         //gameController = new Controller(this);
     }
 
