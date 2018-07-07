@@ -12,8 +12,11 @@ public class Textures {
     public BufferedImage blackBackground;
     public BufferedImage background;
 
+    public BufferedImage brick1;
+    public BufferedImage brick2;
+
     private BufferedImageLoader loader;
-    private SpriteSheet characterSheet;
+    private SpriteSheet entitySheet;
     private SpriteSheet uiSheet;
     private SpriteSheet backgroundSheet;
 
@@ -25,7 +28,7 @@ public class Textures {
 
     private void loadSheets() {
         try {
-            characterSheet = new SpriteSheet(loader.loadImage("characterSheet.png"));
+            entitySheet = new SpriteSheet(loader.loadImage("entitySheet.png"));
             uiSheet = new SpriteSheet(loader.loadImage("uiSheet.png"));
             backgroundSheet = new SpriteSheet(loader.loadImage("backgroundSheet.png"));
         } catch (IOException e) {
@@ -34,12 +37,16 @@ public class Textures {
     }
 
     private void loadTextures() {
-        playerCenter = characterSheet.grabImage(2,1,32,32);
-        playerLeft = characterSheet.grabImage(1,1,32,32);
-        playerRight = characterSheet.grabImage(3,1,32,32);
-        playerBullet = characterSheet.grabImage(4,1,32,32);
+        playerCenter = entitySheet.grabImage(2,1,32,32);
+        playerLeft = entitySheet.grabImage(1,1,32,32);
+        playerRight = entitySheet.grabImage(3,1,32,32);
+        playerBullet = entitySheet.grabImage(4,1,32,32);
         background = backgroundSheet.grabSheetImage();
         blackBackground = new BufferedImage(BrickBBBreaker.WIDTH, BrickBBBreaker.HEIGHT, BufferedImage.TYPE_INT_RGB);
+
+        brick1 = entitySheet.grabImage(1,2,32,32);
+        brick2 = entitySheet.grabImage(2,2,32,32);
+
     }
 
 }
