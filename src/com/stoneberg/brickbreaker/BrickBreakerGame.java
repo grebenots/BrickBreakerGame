@@ -9,41 +9,62 @@ import java.awt.event.KeyEvent;
 import java.awt.AlphaComposite;
 
 public class BrickBreakerGame extends Canvas implements Runnable {
+
     // Constants
-    public static final int SPRITE_SIZE = 32;
-    public static final int BRICK_HEIGHT = 16;
-    public static final int WIDTH = SPRITE_SIZE * 13;
-    public static final int HEIGHT = WIDTH * 12 / 9;
-
-    //    public static final int HEIGHT = 320;
-//    public static final int WIDTH = HEIGHT / 12 * 9;
+    public static final Generic2D<Integer> SPRITE_SIZE = new Generic2D<Integer>(32,32);
+    public static final Generic2D<Integer> BRICK_SIZE = new Generic2D<Integer>(32, SPRITE_SIZE.getY() / 2);
+    public static final Generic2D<Double> WINDOW_SIZE = new Generic2D<Double>((double)SPRITE_SIZE.getX() * 13, ((double)SPRITE_SIZE.getX() * 13) * 12 / 9);
     public static final int SCALE = 1;
-    public static final String TITLE = "BrickBBBreaker";
+    public static final String TITLE = "Brick Breaker Game";
 
-    // Thread stuff
+    // Game Loop and threading
     private boolean running = false;
     private Thread thread;
 
-    // Stuff that needs to be moved elsewhere
-    private Boolean isShooting = false;
+    // Logic
+    private Controller gameController;
 
-    // Other stuff
-    private Player player;
-    private Controller controller;
+    // Graphics
     private Textures textures;
+
+    // Other needed things
+    private Player player;
+
+    // Application entry
+    public static void main (String args[]) {
+        BrickBreakerGame game = new BrickBreakerGame();
+
+        game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+        game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+
+        JFrame frame = new JFrame(game.TITLE);
+        frame.add(game);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        game.start();
+    }
 
     public void init() {
         requestFocus();
+
+        // Attempt to get resources for the game
         try {
             textures = new Textures();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // Setup the input system
         addKeyListener(new KeyInput(this));
 
-        player = new Player(120,500, this);
-        controller = new Controller(this);
+        // Setup logic and components
+        //player = new Player(120,500, this);
+        //gameController = new Controller(this);
     }
 
     private synchronized void start() {
@@ -179,23 +200,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
         }
     }
 
-    public static void main (String args[]) {
-        BrickBBBreaker brickBBBreaker = new BrickBBBreaker();
 
-        brickBBBreaker.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        brickBBBreaker.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-        brickBBBreaker.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-
-        JFrame frame = new JFrame(brickBBBreaker.TITLE);
-        frame.add(brickBBBreaker);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        brickBBBreaker.start();
-    }
 
     public Textures getTextures() {
         return textures;
