@@ -11,8 +11,8 @@ public abstract class Entity {
     abstract void tick();
     abstract void render(Graphics graphics);
 
-    public void Entity() {
-        sprites = new HashMap<>();
+    public Entity() {
+        sprites = new HashMap<String, BufferedImage>();
     }
 
     public final void addSprite(String name, BufferedImage image) {

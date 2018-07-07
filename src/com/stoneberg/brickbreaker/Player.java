@@ -1,5 +1,6 @@
 package com.stoneberg.brickbreaker;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
@@ -12,10 +13,11 @@ public class Player extends Entity {
 
     public Player(double x, double y, SpriteSheet spriteSheet) {
         super();
-        position.set(x,y);
-        velocity.set(0.0,0.0);
+        position = new Generic2D<>(x,y);
+        velocity = new Generic2D<>(0.0,0.0);
 
-        sprites.put("paddleLeft", spriteSheet.getSprite(1,1,32,32));
+        BufferedImage test = spriteSheet.getSprite(1,1,32,32);
+        sprites.put("paddleLeft", test);
         sprites.put("paddleCenter", spriteSheet.getSprite(2,1,32,32));
         sprites.put("paddleRight", spriteSheet.getSprite(3,1,32,32));
     }
@@ -31,7 +33,7 @@ public class Player extends Entity {
             x = BrickBreakerGame.SPRITE_SIZE.getX() / 2;  // Restricts the player from moving off the left of screen
 
         if(x >= BrickBreakerGame.WINDOW_SIZE.getX() - BrickBreakerGame.SPRITE_SIZE.getX())
-            x = BrickBreakerGame.WINDOW_SIZE.getX() - BrickBreakerGame.SPRITE_SIZE.getX();  // Restricts the player from moving off the le
+            x = BrickBreakerGame.WINDOW_SIZE.getX() - BrickBreakerGame.SPRITE_SIZE.getX();  // Restricts the player from moving off the right of screen
 
         position.set(x,y);
     }
