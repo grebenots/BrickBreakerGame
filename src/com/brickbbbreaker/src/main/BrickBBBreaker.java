@@ -10,36 +10,35 @@ import java.awt.AlphaComposite;
 
 public class BrickBBBreaker extends Canvas implements Runnable {
 
+    // Constants
     public static final int HEIGHT = 320;
     public static final int WIDTH = HEIGHT / 12 * 9;
     public static final int SCALE = 2;
     public static final String TITLE = "BrickBBBreaker";
 
+    // Thread stuff
     private boolean running = false;
     private Thread thread;
 
-    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-    private BufferedImage spriteSheet = null;
-    private BufferedImage background = null;
-
+    // Stuff that needs to be moved elsewhere
     private Boolean isShooting = false;
 
+    // Other stuff
     private Player player;
     private Controller controller;
+    private Textures textures;
 
     public void init() {
         requestFocus();
-        BufferedImageLoader loader = new BufferedImageLoader();
         try {
-            spriteSheet = loader.loadImage("spriteSheet.png");
-            background = loader.loadImage("background.png");
-        } catch (IOException e) {
+            textures = new Textures();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         addKeyListener(new KeyInput(this));
 
-        player = new Player(220,600,this);
+        player = new Player(220,600, this);
         controller = new Controller(this);
     }
 
@@ -118,14 +117,14 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         ///  All rendering goes here  ////
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);  // Black background
+        g.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
 
         // Opacity test stuff
         float alpha = 0.1f;
         AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
         Graphics2D gg = (Graphics2D)g;
         gg.setComposite(ac);
-        gg.drawImage(background, 0,0, getWidth(), getHeight(), null);
+        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
         ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
         gg.setComposite(ac);
         // End opacity test
@@ -194,7 +193,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         brickBBBreaker.start();
     }
 
-    public BufferedImage getSpriteSheet() {
-        return spriteSheet;
+    public Textures getTextures() {
+        return textures;
     }
 }

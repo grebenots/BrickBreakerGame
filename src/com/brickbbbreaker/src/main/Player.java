@@ -19,11 +19,9 @@ public class Player {
         this.x = x;
         this.y = y;
 
-        SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-
-        playerCenter = ss.grabImage(2,1,32,32);
-        playerLeft = ss.grabImage(1,1,32,32);
-        playerRight = ss.grabImage(3,1,32,32);
+        playerLeft = game.getTextures().playerLeft;
+        playerCenter = game.getTextures().playerCenter;
+        playerRight = game.getTextures().playerRight;
     }
 
     public void tick() {

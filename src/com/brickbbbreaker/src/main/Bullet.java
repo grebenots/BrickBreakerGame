@@ -14,9 +14,7 @@ public class Bullet {
         this.x = x;
         this.y = y;
 
-        SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-
-        image = ss.grabImage(4,1,32,32);
+        image = game.getTextures().playerBullet;
     }
 
     public void tick() {
