@@ -22,6 +22,8 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     private BufferedImage spriteSheet = null;
     private BufferedImage background = null;
 
+    private Boolean isShooting = false;
+
     private Player player;
     private Controller controller;
 
@@ -152,7 +154,8 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         } else if(key == KeyEvent.VK_UP) {
 
-        } else if(key == KeyEvent.VK_SPACE) {
+        } else if(key == KeyEvent.VK_SPACE && !isShooting) {
+            isShooting = true;
             controller.addBullet(new Bullet(player.getX(), player.getY(), this));
         }
     }
@@ -168,6 +171,8 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         } else if(key == KeyEvent.VK_UP) {
 
+        } else if(key == KeyEvent.VK_SPACE) {
+            isShooting = false;
         }
     }
 
