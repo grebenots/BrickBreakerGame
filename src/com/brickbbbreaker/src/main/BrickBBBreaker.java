@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.AlphaComposite;
 
 public class BrickBBBreaker extends Canvas implements Runnable {
 
@@ -19,6 +20,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private BufferedImage spriteSheet = null;
+    private BufferedImage background = null;
 
     private Player player;
     private Controller controller;
@@ -28,6 +30,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         BufferedImageLoader loader = new BufferedImageLoader();
         try {
             spriteSheet = loader.loadImage("spriteSheet.png");
+            background = loader.loadImage("background.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,13 +114,25 @@ public class BrickBBBreaker extends Canvas implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        ///  All rendering goes here  ////
 
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        ///  All rendering goes here  ////
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);  // Black background
+
+        // Opacity test stuff
+        float alpha = 0.1f;
+        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        Graphics2D gg = (Graphics2D)g;
+        gg.setComposite(ac);
+        gg.drawImage(background, 0,0, getWidth(), getHeight(), null);
+        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+        gg.setComposite(ac);
+        // End opacity test
+
         player.render(g);
         controller.render(g);
 
         ///  End of rendering section  ///
+
         g.dispose();
         bs.show();
     }
