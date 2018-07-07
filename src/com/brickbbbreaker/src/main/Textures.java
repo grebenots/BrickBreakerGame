@@ -12,6 +12,12 @@ public class Textures {
     public BufferedImage blackBackground;
     public BufferedImage background;
 
+    public BufferedImage uiBorderLeft;
+    public BufferedImage uiBorderRight;
+    public BufferedImage uiBorderTop;
+    public BufferedImage uiBorderTopLeft;
+    public BufferedImage uiBorderTopRight;
+
     public BufferedImage brick1;
     public BufferedImage brick2;
 
@@ -43,6 +49,10 @@ public class Textures {
         playerBullet = entitySheet.grabImage(4,1,32,32);
         background = backgroundSheet.grabSheetImage();
         blackBackground = new BufferedImage(BrickBBBreaker.WIDTH, BrickBBBreaker.HEIGHT, BufferedImage.TYPE_INT_RGB);
+
+//        uiBorderLeft = entitySheet.grabImage(1,4,32,32);
+//        uiBorderTop = entitySheet.grabImage(2,3,32,32);
+//        uiBorderTopLeft = entitySheet.grabImage(1,3,32,32);
 
         brick1 = entitySheet.grabImage(1,2,32,32);
         brick2 = entitySheet.grabImage(2,2,32,32);

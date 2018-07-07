@@ -11,9 +11,14 @@ import java.awt.AlphaComposite;
 public class BrickBBBreaker extends Canvas implements Runnable {
 
     // Constants
-    public static final int HEIGHT = 320;
-    public static final int WIDTH = HEIGHT / 12 * 9;
-    public static final int SCALE = 2;
+    public static final int SPRITE_SIZE = 32;
+    public static final int BRICK_HEIGHT = 16;
+    public static final int WIDTH = SPRITE_SIZE * 13;
+    public static final int HEIGHT = WIDTH * 12 / 9;
+
+//    public static final int HEIGHT = 320;
+//    public static final int WIDTH = HEIGHT / 12 * 9;
+    public static final int SCALE = 1;
     public static final String TITLE = "BrickBBBreaker";
 
     // Thread stuff
@@ -38,7 +43,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         addKeyListener(new KeyInput(this));
 
-        player = new Player(220,600, this);
+        player = new Player(120,500, this);
         controller = new Controller(this);
     }
 
