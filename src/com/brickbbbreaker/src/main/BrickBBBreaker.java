@@ -21,6 +21,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
     private BufferedImage spriteSheet = null;
 
     private Player player;
+    private Controller controller;
 
     public void init() {
         requestFocus();
@@ -34,6 +35,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
         addKeyListener(new KeyInput(this));
 
         player = new Player(220,600,this);
+        controller = new Controller(this);
     }
 
     private synchronized void start() {
@@ -98,6 +100,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
     private void tick() {
         player.tick();
+        controller.tick();
     }
 
     private void render() {
@@ -112,7 +115,7 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
         player.render(g);
-
+        controller.render(g);
 
         ///  End of rendering section  ///
         g.dispose();
@@ -134,6 +137,8 @@ public class BrickBBBreaker extends Canvas implements Runnable {
 
         } else if(key == KeyEvent.VK_UP) {
 
+        } else if(key == KeyEvent.VK_SPACE) {
+            controller.addBullet(new Bullet(player.getX(), player.getY(), this));
         }
     }
 
