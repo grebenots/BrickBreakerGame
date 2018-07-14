@@ -26,7 +26,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
     private InputController inputController;
 
     // Logic
-    private Controller gameController;
+    private GameController gameController;
 
     // Sprite Sheets
     private SpriteSheet entitySheet;
@@ -78,6 +78,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
         inputController = new InputController(this);
 
         // Setup logic and components
+        gameController = new GameController(this);
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);
 
         // Brick Testing
@@ -153,7 +154,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
     private void tick() {
         player.tick();
-//        controller.tick();
+        gameController.tick();
     }
 
     private void render() {
@@ -181,7 +182,10 @@ public class BrickBreakerGame extends Canvas implements Runnable {
         BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
         g.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
         player.render(g);
-//        controller.render(g);
+        gameController.render(g);
+
+
+        // Temp rendering stuff
         brick1.render(g);
         brick2.render(g);
         brick3.render(g);
@@ -205,5 +209,13 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
     public Player getPlayer() {
         return this.player;
+    }
+
+    public GameController getGameController() {
+        return this.gameController;
+    }
+
+    public SpriteSheet getEntitySheet() {
+        return entitySheet;
     }
 }

@@ -24,7 +24,7 @@ public class InputController {
 
         } else if(key == KeyEvent.VK_SPACE && !game.getPlayer().getIsShooting()) {
             game.getPlayer().setIsShooting(true);
-            //controller.addBullet(new Bullet(player.getX(), player.getY(), this));
+            game.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
         }
     }
 
