@@ -75,7 +75,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
         // Setup the input system
         addKeyListener(new KeyInput(this));
-        inputController = new InputController();
+        inputController = new InputController(this);
 
         // Setup logic and components
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);

@@ -12,10 +12,10 @@ public class KeyInput extends KeyAdapter {
     }
 
     public void keyPressed(KeyEvent e) {
-        game.getInputController().keyPressed(e, game);
+        game.getInputController().keyPressed(e);
     }
 
     public void keyReleased(KeyEvent e) {
-        game.getInputController().keyReleased(e, game);
+        game.getInputController().keyReleased(e);
     }
 }

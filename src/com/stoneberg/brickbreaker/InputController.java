@@ -4,7 +4,13 @@ import java.awt.event.KeyEvent;
 
 public class InputController {
 
-    public void keyPressed(KeyEvent e, BrickBreakerGame game) {
+    BrickBreakerGame game;
+
+    public InputController(BrickBreakerGame game) {
+        this.game = game;
+    }
+
+    public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
 
@@ -22,7 +28,7 @@ public class InputController {
         }
     }
 
-    public void keyReleased(KeyEvent e, BrickBreakerGame game) {
+    public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
