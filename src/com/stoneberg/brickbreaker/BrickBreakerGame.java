@@ -22,6 +22,9 @@ public class BrickBreakerGame extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
 
+    // Input
+    private InputController inputController;
+
     // Logic
     private Controller gameController;
 
@@ -72,6 +75,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
         // Setup the input system
         addKeyListener(new KeyInput(this));
+        inputController = new InputController();
 
         // Setup logic and components
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);
@@ -195,36 +199,11 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
     }
 
-    public void keyPressed(KeyEvent e) {
-//        int key = e.getKeyCode();
-//
-//        if(key == KeyEvent.VK_RIGHT) {
-//            player.setVelocityX(5);
-//        } else if(key == KeyEvent.VK_LEFT) {
-//            player.setVelocityX(-5);
-//        } else if(key == KeyEvent.VK_DOWN) {
-//
-//        } else if(key == KeyEvent.VK_UP) {
-//
-//        } else if(key == KeyEvent.VK_SPACE && !isShooting) {
-//            isShooting = true;
-//            controller.addBullet(new Bullet(player.getX(), player.getY(), this));
-//        }
+    public InputController getInputController() {
+        return inputController;
     }
 
-    public void keyReleased(KeyEvent e) {
-//        int key = e.getKeyCode();
-//
-//        if(key == KeyEvent.VK_RIGHT) {
-//            player.setVelocityX(0);
-//        } else if(key == KeyEvent.VK_LEFT) {
-//            player.setVelocityX(0);
-//        } else if(key == KeyEvent.VK_DOWN) {
-//
-//        } else if(key == KeyEvent.VK_UP) {
-//
-//        } else if(key == KeyEvent.VK_SPACE) {
-//            isShooting = false;
-//        }
+    public Player getPlayer() {
+        return this.player;
     }
 }

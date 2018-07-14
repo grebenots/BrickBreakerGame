@@ -7,11 +7,13 @@ public class Player extends Entity {
     // Physics
     private Generic2D<Double> position;
     private Generic2D<Double> velocity;
+    private boolean isShooting;
 
     public Player(double x, double y, SpriteSheet spriteSheet) {
         super();
         position = new Generic2D<>(x,y);
         velocity = new Generic2D<>(0.0,0.0);
+        isShooting = false;
 
         sprites.put("paddleLeft", spriteSheet.getSprite(1,1,32,32));
         sprites.put("paddleCenter", spriteSheet.getSprite(2,1,32,32));
@@ -42,5 +44,21 @@ public class Player extends Entity {
         graphics.drawImage(sprites.get("paddleLeft"), (int)x - 32, (int)y, null);
         graphics.drawImage(sprites.get("paddleCenter"),(int)x,(int)y,null);
         graphics.drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
+    }
+
+    public Generic2D<Double> getVelocity() {
+        return velocity;
+    }
+
+    public Generic2D<Double> getPosition() {
+        return position;
+    }
+
+    public boolean getIsShooting() {
+        return isShooting;
+    }
+
+    public void setIsShooting(boolean b) {
+        isShooting = b;
     }
 }
