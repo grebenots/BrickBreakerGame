@@ -8,6 +8,7 @@ public class GameController {
     private BrickBreakerGame game;
     private LinkedList<Bullet> bullets = new LinkedList<Bullet>();
     private LinkedList<Brick> bricks = new LinkedList<Brick>();
+    private LinkedList<Ball> balls = new LinkedList<Ball>();
 
     private Bullet tempBullet;
     private Brick tempBrick;
@@ -17,6 +18,18 @@ public class GameController {
     }
 
     public void tick() {
+        // Tick the balls
+        // TO DO
+
+        // Tick the bricks
+        // TO DO
+
+        // Tick the bullets
+        // TO DO
+
+        // Tick the power ups
+        // TO DO
+
         for(int i = 0; i < bullets.size(); i++) {
             tempBullet = bullets.get(i);
 

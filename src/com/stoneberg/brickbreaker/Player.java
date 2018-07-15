@@ -46,6 +46,11 @@ public class Player extends Entity {
         graphics.drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
     }
 
+    public void fireBullet() {
+        // NEED TO MOVE CODE FOR FIRING FROM THE GAME CONTROLLER TO HERE
+        //game.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
+    }
+
     public Generic2D<Double> getVelocity() {
         return velocity;
     }
