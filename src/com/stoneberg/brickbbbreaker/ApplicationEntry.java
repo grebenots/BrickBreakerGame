@@ -17,12 +17,16 @@ public class ApplicationEntry extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
 
+    // Singleton game instance
+    private BrickBBBreaker theStinkyCheese;
+
+    // Application entry point
     public static void main(String[] args) {
-        // Application
+        // Application instance
         ApplicationEntry application = new ApplicationEntry();
 
         // Initialize the singleton game instance
-        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
+//        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
         application.setPreferredSize(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE)));
         application.setMaximumSize(new Dimension(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE))));
@@ -39,7 +43,12 @@ public class ApplicationEntry extends Canvas implements Runnable {
         application.start();
     }
 
-    public void init() {  // NOT DONE
+    private ApplicationEntry() {
+        // Initialize the game instance
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();
+    }
+
+    private void init() {  // NOT DONE
         requestFocus();
 
         // Setup the input system
@@ -84,7 +93,8 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     public void run() {
-        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
+//        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();
         init();
         long lastTime = System.nanoTime();
         final double targetFPS = 60.0;
