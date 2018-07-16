@@ -45,6 +45,7 @@ public class BrickBreakerGame extends Canvas implements Runnable {
 
     // Application entry
     public static void main(String args[]) {
+        System.out.println("This is a test");
         BrickBreakerGame game = new BrickBreakerGame();
 
         game.setPreferredSize(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE)));
