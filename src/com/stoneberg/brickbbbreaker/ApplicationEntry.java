@@ -1,3 +1,24 @@
+/*  Tim Stoneberg
+    COMP 170, Intro to Object Oriented Programming
+
+    or as I like to call it, "Learning to make cars, and trucks, and boats out of generic vehicle Play-Doh 101"
+
+    Loyola University Chicago
+    Summer Semester 2018
+    Final Project
+
+    Title:  BrickBBBreaker
+    Purpose:  A clone and modification of the classic brick breaking, paddle moving, physics game
+
+    Additional notes:
+    I followed a YouTube tutorial to learn about implementing threading, fps management, and other useful game
+    programming information at https://www.youtube.com/watch?v=hXImR8Wm53M&list=PLWms45O3n--6KCNAEETGiVTEFvnqA7qCi
+
+    The tutorial creates a Space Warfare game.  The threading logic seen in this class is a rehash of some of that
+    tutorial code.  The logic for the brick breaking game however, as seen in the rest of the classes, are all
+    my own.
+ */
+
 package com.stoneberg.brickbbbreaker;
 
 import javax.swing.*;
