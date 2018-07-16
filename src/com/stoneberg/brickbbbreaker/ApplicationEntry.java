@@ -94,7 +94,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
         // End of rendering section
 
 
-        
+
 //        graphics.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
 //
 //        // Opacity test stuff
