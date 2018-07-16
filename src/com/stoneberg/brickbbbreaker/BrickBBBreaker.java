@@ -2,6 +2,7 @@ package com.stoneberg.brickbbbreaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
 public class BrickBBBreaker {
@@ -54,52 +55,52 @@ public class BrickBBBreaker {
 
 
 
-    public void tick() {
-        //player.tick();
-        //gameController.tick();
-    }
+//    public void tick() {
+//        //player.tick();
+//        //gameController.tick();
+//    }
 
-    public void render() {
-        //BufferStrategy bs = this.getBufferStrategy();
-
-        //if (bs == null) {
-        //    createBufferStrategy(3);
-        //    return;
-        //}
-        //Graphics g = bs.getDrawGraphics();
-
-        ///  All rendering goes here  ////
-//        g.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+//    public void render() {
+////        BufferStrategy bs = this.getBufferStrategy();
+////
+////        if (bs == null) {
+////            createBufferStrategy(3);
+////            return;
+////        }
+////        Graphics g = bs.getDrawGraphics();
 //
-//        // Opacity test stuff
-//        float alpha = 0.1f;
-//        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-//        Graphics2D gg = (Graphics2D)g;
-//        gg.setComposite(ac);
-//        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
-//        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-//        gg.setComposite(ac);
-//        // End opacity test
-
-        //BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
-        //g.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
-        //player.render(g);
-        //gameController.render(g);
-
-
-        // Temp rendering stuff
-        //brick1.render(g);
-        //brick2.render(g);
-        //brick3.render(g);
-        //brick4.render(g);
-        //brick5.render(g);
-        //brick6.render(g);
-
-        ///  End of rendering section  ///
-
-        //g.dispose();
-        //bs.show();
-    }
+//        ///  All rendering goes here  ////
+////        g.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+////
+////        // Opacity test stuff
+////        float alpha = 0.1f;
+////        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+////        Graphics2D gg = (Graphics2D)g;
+////        gg.setComposite(ac);
+////        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
+////        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+////        gg.setComposite(ac);
+////        // End opacity test
+//
+//        //BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+//        //g.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+//        //player.render(g);
+//        //gameController.render(g);
+//
+//
+//        // Temp rendering stuff
+//        //brick1.render(g);
+//        //brick2.render(g);
+//        //brick3.render(g);
+//        //brick4.render(g);
+//        //brick5.render(g);
+//        //brick6.render(g);
+//
+//        ///  End of rendering section  ///
+//
+//        //g.dispose();
+//        //bs.show();
+//    }
 
 
 

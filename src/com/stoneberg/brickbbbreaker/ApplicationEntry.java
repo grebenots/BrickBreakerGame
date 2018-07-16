@@ -23,6 +23,7 @@ package com.stoneberg.brickbbbreaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class ApplicationEntry extends Canvas implements Runnable {
 
@@ -69,9 +70,67 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
     }
 
+    private void tick() {
+        theStinkyCheese.getPlayer().tick();
+        theStinkyCheese.getGameController().tick();
+    }
+
+    private void render() {
+        BufferStrategy bs = this.getBufferStrategy();
+
+        if (bs == null) {
+            createBufferStrategy(3);
+            return;
+        }
+        Graphics graphics = bs.getDrawGraphics();
+
+        //  All rendering goes here
+
+
+
+
+
+
+        // End of rendering section
+
+
+        
+//        graphics.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+//
+//        // Opacity test stuff
+//        float alpha = 0.1f;
+//        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+//        Graphics2D gg = (Graphics2D)graphics;
+//        gg.setComposite(ac);
+//        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
+//        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+//        gg.setComposite(ac);
+//        // End opacity test
+//
+//        BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+//        graphics.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+//        player.render(graphics);
+//        gameController.render(graphics);
+//
+//
+//         Temp rendering stuff
+//        brick1.render(graphics);
+//        brick2.render(graphics);
+//        brick3.render(graphics);
+//        brick4.render(graphics);
+//        brick5.render(graphics);
+//        brick6.render(graphics);
+//
+//        /  End of rendering section  ///
+//
+//        graphics.dispose();
+//        bs.show();
+    }
+
+
+
     private void init() {  // NOT DONE
         requestFocus();
-
         // Setup the input system
         //addKeyListener(new KeyInput(this));
         //inputController = new InputController(this);
@@ -114,8 +173,6 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     public void run() {
-//        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
-        theStinkyCheese = BrickBBBreaker.getCurrentGame();
         init();
         long lastTime = System.nanoTime();
         final double targetFPS = 60.0;
@@ -134,11 +191,11 @@ public class ApplicationEntry extends Canvas implements Runnable {
             lastTime = now;
 
             if (delta >= 1) {
-                theStinkyCheese.tick();
+                tick();
                 updates++;
                 delta--;
             }
-            theStinkyCheese.render();
+            render();
             frames++;
 
             if (System.currentTimeMillis() - timer > 1000) {
