@@ -81,8 +81,6 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese.getGameController().render();
 
 
-        BufferedImage blackBackground = new BufferedImage(theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
-        theStinkyCheese.getGraphics().drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
 //        player.render(graphics);
 //        gameController.render(graphics);
 //

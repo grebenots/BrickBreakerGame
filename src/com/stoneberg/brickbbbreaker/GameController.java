@@ -22,7 +22,7 @@ public class GameController {
         graphics.drawImage(blackBackground, 0, 0, theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(),null);
 
         // Render player
-
+        // ENDED HERE, GET THE PLAYER RENDERING!!!!
 
         // Render bricks
 
