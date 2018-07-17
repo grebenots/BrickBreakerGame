@@ -1,5 +1,7 @@
 package com.stoneberg.brickbbbreaker;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -21,6 +23,17 @@ public class BrickBBBreaker {
 
     // The game instance
     private static volatile BrickBBBreaker currentGame;
+
+    // Constants
+    public static final Generic2D<Integer> SPRITE_SIZE = new Generic2D<Integer>(32, 32);
+    public static final Generic2D<Integer> BRICK_SIZE = new Generic2D<Integer>(32, SPRITE_SIZE.getY() / 2);
+    public static final Generic2D<Double> WINDOW_SIZE = new Generic2D<Double>((double) SPRITE_SIZE.getX() * 13, ((double) SPRITE_SIZE.getX() * 13) * 12 / 9);
+    public static final Generic2D<Double> WINDOW_CENTER = new Generic2D<Double>(WINDOW_SIZE.getX() / 2, WINDOW_SIZE.getY() / 2);
+    public static final double SCALE = 1;
+    public static final String TITLE = "BrickBBBreaker Game";
+
+    // Graphics
+    private Graphics graphics;
 
     // Game components
     private GameController gameController;
@@ -113,6 +126,14 @@ public class BrickBBBreaker {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Graphics getGraphics() {
+        return graphics;
+    }
+
+    public void setGraphics(Graphics graphics) {
+        this.graphics = graphics;
     }
 
     private void sayHello() {

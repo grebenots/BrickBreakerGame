@@ -24,16 +24,9 @@ package com.stoneberg.brickbbbreaker;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class ApplicationEntry extends Canvas implements Runnable {
-
-    // Constants
-    public static final Generic2D<Integer> SPRITE_SIZE = new Generic2D<Integer>(32, 32);
-    public static final Generic2D<Integer> BRICK_SIZE = new Generic2D<Integer>(32, SPRITE_SIZE.getY() / 2);
-    public static final Generic2D<Double> WINDOW_SIZE = new Generic2D<Double>((double) SPRITE_SIZE.getX() * 13, ((double) SPRITE_SIZE.getX() * 13) * 12 / 9);
-    public static final Generic2D<Double> WINDOW_CENTER = new Generic2D<Double>(WINDOW_SIZE.getX() / 2, WINDOW_SIZE.getY() / 2);
-    public static final double SCALE = 1;
-    public static final String TITLE = "Brick Breaker Game";
 
     // Threading
     private boolean running = false;
@@ -48,13 +41,13 @@ public class ApplicationEntry extends Canvas implements Runnable {
         ApplicationEntry application = new ApplicationEntry();
 
         // Initialize the singleton game instance
-//        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
+        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
-        application.setPreferredSize(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE)));
-        application.setMaximumSize(new Dimension(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE))));
-        application.setMinimumSize(new Dimension(new Dimension((int)(WINDOW_SIZE.getX() * SCALE), (int)(WINDOW_SIZE.getY() * SCALE))));
+        application.setPreferredSize(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE)));
+        application.setMaximumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
+        application.setMinimumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
 
-        JFrame frame = new JFrame(TITLE);
+        JFrame frame = new JFrame(theStinkyCheese.TITLE);
         frame.add(application);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,17 +75,35 @@ public class ApplicationEntry extends Canvas implements Runnable {
             createBufferStrategy(3);
             return;
         }
-        Graphics graphics = bs.getDrawGraphics();
+        theStinkyCheese.setGraphics(bs.getDrawGraphics());
 
         //  All rendering goes here
+        theStinkyCheese.getGameController().render();
 
 
-
-
-
+        BufferedImage blackBackground = new BufferedImage(theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+        theStinkyCheese.getGraphics().drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
+//        player.render(graphics);
+//        gameController.render(graphics);
+//
+//
+//         Temp rendering stuff
+//        brick1.render(graphics);
+//        brick2.render(graphics);
+//        brick3.render(graphics);
+//        brick4.render(graphics);
+//        brick5.render(graphics);
+//        brick6.render(graphics);
+//
+//        /  End of rendering section  ///
+//
+//        graphics.dispose();
+//        bs.show();
 
         // End of rendering section
 
+          theStinkyCheese.getGraphics().dispose();
+          bs.show();
 
 
 //        graphics.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
