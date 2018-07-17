@@ -44,6 +44,7 @@ public class BrickBBBreaker {
     // Game components
     private GameController gameController;
     private InputController inputController;
+    private MainMenu mainMenu;
     private Player player;
 
     // Sprite Sheets
@@ -73,59 +74,6 @@ public class BrickBBBreaker {
     }
 
 
-
-//    public void tick() {
-//        //player.tick();
-//        //gameController.tick();
-//    }
-
-//    public void render() {
-////        BufferStrategy bs = this.getBufferStrategy();
-////
-////        if (bs == null) {
-////            createBufferStrategy(3);
-////            return;
-////        }
-////        Graphics g = bs.getDrawGraphics();
-//
-//        ///  All rendering goes here  ////
-////        g.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
-////
-////        // Opacity test stuff
-////        float alpha = 0.1f;
-////        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-////        Graphics2D gg = (Graphics2D)g;
-////        gg.setComposite(ac);
-////        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
-////        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-////        gg.setComposite(ac);
-////        // End opacity test
-//
-//        //BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
-//        //g.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
-//        //player.render(g);
-//        //gameController.render(g);
-//
-//
-//        // Temp rendering stuff
-//        //brick1.render(g);
-//        //brick2.render(g);
-//        //brick3.render(g);
-//        //brick4.render(g);
-//        //brick5.render(g);
-//        //brick6.render(g);
-//
-//        ///  End of rendering section  ///
-//
-//        //g.dispose();
-//        //bs.show();
-//    }
-
-
-
-
-
-
     public GameController getGameController() {
         return gameController;
     }
@@ -136,6 +84,10 @@ public class BrickBBBreaker {
 
     public GameState getCurrentState() {
         return currentState;
+    }
+
+    public MainMenu getMainMenu() {
+        return mainMenu;
     }
 
     public Player getPlayer() {
@@ -170,6 +122,7 @@ public class BrickBBBreaker {
 
         gameController = new GameController();
         inputController = new InputController();
+        mainMenu = new MainMenu();
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);

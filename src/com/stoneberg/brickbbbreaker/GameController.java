@@ -14,8 +14,18 @@ public class GameController {
     public void tick() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
-        // TO DO, tick based on the currentState
-        theStinkyCheese.getPlayer().tick();
+        // Now we render based upon the current game state
+        switch(theStinkyCheese.getCurrentState()) {
+            case MENU:
+                tickMenu();
+                break;
+            case GAME:
+                tickGame();
+                break;
+            case PAUSED:
+                tickPause();
+                break;
+        }
     }
 
     public void render() {
@@ -40,7 +50,32 @@ public class GameController {
         }
     }
 
+    private void tickMenu() {
+
+    }
+
+    private void tickGame() {
+        // Tick player
+        theStinkyCheese.getPlayer().tick();
+
+        // Tick bricks
+
+
+        // Tick ball
+
+
+        // Tick More Stuff...
+
+
+
+    }
+
+    private void tickPause() {
+
+    }
+
     private void renderMenu() {
+        theStinkyCheese.getMainMenu().render();
 
     }
 
@@ -57,6 +92,16 @@ public class GameController {
         // Render More Stuff...
 
 
+
+        // Opacity test stuff
+        // float alpha = 0.1f;
+        // AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        // Graphics2D gg = (Graphics2D)g;
+        // gg.setComposite(ac);
+        // gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
+        // ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+        // gg.setComposite(ac);
+        // End opacity test
     }
 
     private void renderPause() {
