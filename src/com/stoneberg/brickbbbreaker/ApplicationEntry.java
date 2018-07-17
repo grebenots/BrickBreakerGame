@@ -84,7 +84,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese.setGraphics(bs.getDrawGraphics());
         theStinkyCheese.getGameController().render();
 
-        
+
 //
 //
 //         Temp rendering stuff

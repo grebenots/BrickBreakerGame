@@ -12,10 +12,35 @@ public class InputController extends KeyAdapter {
     }
 
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT) {
+            theStinkyCheese.getPlayer().getVelocity().setX(5.0);
+        } else if(key == KeyEvent.VK_LEFT) {
+            theStinkyCheese.getPlayer().getVelocity().setX(-5.0);
+        } else if(key == KeyEvent.VK_DOWN) {
+
+        } else if(key == KeyEvent.VK_UP) {
+
+        } else if(key == KeyEvent.VK_SPACE && !theStinkyCheese.getPlayer().getIsShooting()) {
+            theStinkyCheese.getPlayer().setIsShooting(true);
+            //theStinkyCheese.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
+        }
     }
 
     public void keyReleased(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT) {
+            theStinkyCheese.getPlayer().getVelocity().setX(0.0);
+        } else if(key == KeyEvent.VK_LEFT) {
+            theStinkyCheese.getPlayer().getVelocity().setX(0.0);
+        } else if(key == KeyEvent.VK_DOWN) {
+
+        } else if(key == KeyEvent.VK_UP) {
+
+        } else if(key == KeyEvent.VK_SPACE) {
+            theStinkyCheese.getPlayer().setIsShooting(false);
+        }
     }
 }

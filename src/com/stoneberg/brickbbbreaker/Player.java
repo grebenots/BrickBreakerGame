@@ -44,6 +44,14 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
     }
 
+    public boolean getIsShooting() {
+        return isShooting;
+    }
+
+    public void setIsShooting(boolean isShooting) {
+        this.isShooting = isShooting;
+    }
+
     public Generic2D<Double> getVelocity() {
         return velocity;
     }
