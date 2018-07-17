@@ -75,9 +75,9 @@ public class ApplicationEntry extends Canvas implements Runnable {
             createBufferStrategy(3);
             return;
         }
-        theStinkyCheese.setGraphics(bs.getDrawGraphics());
 
         //  All rendering goes here
+        theStinkyCheese.setGraphics(bs.getDrawGraphics());
         theStinkyCheese.getGameController().render();
 
 
@@ -92,11 +92,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
 //        brick4.render(graphics);
 //        brick5.render(graphics);
 //        brick6.render(graphics);
-//
-//        /  End of rendering section  ///
-//
-//        graphics.dispose();
-//        bs.show();
+
 
         // End of rendering section
 

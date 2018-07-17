@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 public class GameController {
 
+    private BrickBBBreaker theStinkyCheese = null;
+
     public GameController() {
 
     }
@@ -14,7 +16,7 @@ public class GameController {
     }
 
     public void render() {
-        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();
         Graphics graphics = theStinkyCheese.getGraphics();
 
         // Set the background to black, then draw it
@@ -22,7 +24,7 @@ public class GameController {
         graphics.drawImage(blackBackground, 0, 0, theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(),null);
 
         // Render player
-        // ENDED HERE, GET THE PLAYER RENDERING!!!!
+        theStinkyCheese.getPlayer().render();
 
         // Render bricks
 

@@ -139,7 +139,7 @@ public class BrickBBBreaker {
     private void sayHello() {
         System.out.println("BrickBBBreaker Singleton says Hello World!");
 
-        AddDebugLog("Said Hello World");
+        AddDebugLog("Said Hello World", true);
     }
 
     private void initComponents() {
@@ -153,10 +153,18 @@ public class BrickBBBreaker {
             e.printStackTrace();
         }
 
-        AddDebugLog("Initialized Components");
+        AddDebugLog("Initialized Components", true);
     }
 
     public void AddDebugLog(String message) {
         log.add(new DebugLog(message));
+    }
+
+    public void AddDebugLog(String message, boolean printToConsole) {
+        DebugLog newLog = new DebugLog(message);
+        log.add(newLog);
+
+        if(printToConsole)
+            System.out.println(newLog.getMessage() + " ::: " + newLog.getTimestamp());
     }
 }
