@@ -150,7 +150,7 @@ public class BrickBBBreaker {
         }
 
         gameController = new GameController();
-        player = new Player(0.0, 0.0);
+        player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);
     }
