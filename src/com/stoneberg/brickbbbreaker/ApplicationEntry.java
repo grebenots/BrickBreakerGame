@@ -43,6 +43,10 @@ public class ApplicationEntry extends Canvas implements Runnable {
         // Initialize the singleton game instance
         BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
+        // Initialize input controller
+        application.addKeyListener(theStinkyCheese.getInputController());
+
+        // Configure the game game window
         application.setPreferredSize(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE)));
         application.setMaximumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
         application.setMinimumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
@@ -80,9 +84,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese.setGraphics(bs.getDrawGraphics());
         theStinkyCheese.getGameController().render();
 
-
-//        player.render(graphics);
-//        gameController.render(graphics);
+        
 //
 //
 //         Temp rendering stuff

@@ -119,6 +119,10 @@ public class BrickBBBreaker {
         return gameController;
     }
 
+    public InputController getInputController() {
+        return inputController;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -150,6 +154,7 @@ public class BrickBBBreaker {
         }
 
         gameController = new GameController();
+        inputController = new InputController();
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);

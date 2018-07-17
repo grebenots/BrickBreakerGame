@@ -43,4 +43,12 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleCenter"),(int)x,(int)y,null);
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
     }
+
+    public Generic2D<Double> getVelocity() {
+        return velocity;
+    }
+
+    public Generic2D<Double> getPosition() {
+        return position;
+    }
 }
