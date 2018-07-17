@@ -1,10 +1,6 @@
 package com.stoneberg.brickbbbreaker;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
 public class BrickBBBreaker {
@@ -41,7 +37,7 @@ public class BrickBBBreaker {
     private Player player;
 
     // Sprite Sheets
-    private SpriteSheet entitySheet;
+    private SpriteSheet spriteSheet;
 
     // Game Loop and threading
     private boolean running = false;
@@ -50,16 +46,15 @@ public class BrickBBBreaker {
     // Debug logging
     private LinkedList<DebugLog> log = new LinkedList<DebugLog>();
 
-    private BrickBBBreaker(){
-        sayHello();
-        initComponents();
-    }
+    private BrickBBBreaker(){}
 
     public static BrickBBBreaker getCurrentGame() {
         if(currentGame == null) {
             synchronized (BrickBBBreaker.class) {
                 if(currentGame == null) {
                     currentGame = new BrickBBBreaker();
+                    currentGame.sayHello();
+                    currentGame.initComponents();
                 }
             }
         }
@@ -128,6 +123,10 @@ public class BrickBBBreaker {
         return player;
     }
 
+    public SpriteSheet getSpriteSheet() {
+        return spriteSheet;
+    }
+
     public Graphics getGraphics() {
         return graphics;
     }
@@ -143,15 +142,15 @@ public class BrickBBBreaker {
     }
 
     private void initComponents() {
-        gameController = new GameController();
-        player = new Player();
-
         // Attempt to get resources for the game
         try {
-            entitySheet = new SpriteSheet("entitySheet.png");
+            spriteSheet = new SpriteSheet("spriteSheet.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        gameController = new GameController();
+        player = new Player(0.0, 0.0);
 
         AddDebugLog("Initialized Components", true);
     }

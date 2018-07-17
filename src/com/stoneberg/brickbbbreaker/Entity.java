@@ -15,12 +15,13 @@ public abstract class Entity {
     abstract void render();
 
     public Entity() {
+        updateTheCheese();
         sprites = new HashMap<String, BufferedImage>();
         position = new Generic2D<>(0.0, 0.0);
         velocity = new Generic2D<>(0.0, 0.0);
     }
 
-    protected final void getCurrentCheese() {
+    protected final void updateTheCheese() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
     }
 
