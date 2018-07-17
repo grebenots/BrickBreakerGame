@@ -28,6 +28,16 @@ public class BrickBBBreaker {
     public static final double SCALE = 1;
     public static final String TITLE = "BrickBBBreaker Game";
 
+    // Game States
+    public enum GameState {
+        MENU,
+        GAME,
+        PAUSED
+    }
+
+    // Current Game State
+    private GameState currentState;
+
     // Graphics
     private Graphics graphics;
 
@@ -53,6 +63,7 @@ public class BrickBBBreaker {
             synchronized (BrickBBBreaker.class) {
                 if(currentGame == null) {
                     currentGame = new BrickBBBreaker();
+                    currentGame.currentState = GameState.MENU;
                     currentGame.sayHello();
                     currentGame.initComponents();
                 }
@@ -121,6 +132,10 @@ public class BrickBBBreaker {
 
     public InputController getInputController() {
         return inputController;
+    }
+
+    public GameState getCurrentState() {
+        return currentState;
     }
 
     public Player getPlayer() {

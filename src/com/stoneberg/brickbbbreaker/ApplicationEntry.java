@@ -68,7 +68,6 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     private void tick() {
-        theStinkyCheese.getPlayer().tick();
         theStinkyCheese.getGameController().tick();
     }
 

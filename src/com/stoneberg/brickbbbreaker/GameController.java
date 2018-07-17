@@ -12,7 +12,10 @@ public class GameController {
     }
 
     public void tick() {
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
+        // TO DO, tick based on the currentState
+        theStinkyCheese.getPlayer().tick();
     }
 
     public void render() {
@@ -23,6 +26,25 @@ public class GameController {
         BufferedImage blackBackground = new BufferedImage(theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
         graphics.drawImage(blackBackground, 0, 0, theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(),null);
 
+        // Now we render based upon the current game state
+        switch(theStinkyCheese.getCurrentState()) {
+            case MENU:
+                renderMenu();
+                break;
+            case GAME:
+                renderGame();
+                break;
+            case PAUSED:
+                renderPause();
+                break;
+        }
+    }
+
+    private void renderMenu() {
+
+    }
+
+    private void renderGame() {
         // Render player
         theStinkyCheese.getPlayer().render();
 
@@ -35,6 +57,9 @@ public class GameController {
         // Render More Stuff...
 
 
+    }
+
+    private void renderPause() {
 
     }
 }
