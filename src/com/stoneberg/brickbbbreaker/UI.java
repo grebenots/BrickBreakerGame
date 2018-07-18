@@ -32,19 +32,19 @@ public class UI extends Entity {
         updateTheCheese();
 
         // Render the edge of the screen (13 tiles wide x 17 tiles tall)
-        drawTileByCoordinate("NW", 0, 0);
-        drawTileByCoordinate("NE", 12, 0);
-        drawTileByCoordinate("SW", 0, 16);
-        drawTileByCoordinate("SE", 12, 16);
+        drawSpriteByCoordinate("NW", 0, 0);
+        drawSpriteByCoordinate("NE", 12, 0);
+        drawSpriteByCoordinate("SW", 0, 16);
+        drawSpriteByCoordinate("SE", 12, 16);
 
         for(int i = 1; i < 16; i++) {
-            drawTileByCoordinate("W", 0, i);
-            drawTileByCoordinate("E", 12, i);
+            drawSpriteByCoordinate("W", 0, i);
+            drawSpriteByCoordinate("E", 12, i);
         }
 
         for(int i = 1; i < 12; i++) {
-            drawTileByCoordinate("N", i, 0);
-            drawTileByCoordinate("S", i, 16);
+            drawSpriteByCoordinate("N", i, 0);
+            drawSpriteByCoordinate("S", i, 16);
         }
 
         // Render bricks
@@ -68,7 +68,7 @@ public class UI extends Entity {
 
     }
 
-    private void drawTileByCoordinate(String name, int xCoordinate, int yCoordinate) {
+    private void drawSpriteByCoordinate(String name, int xCoordinate, int yCoordinate) {
         int x = xCoordinate * theStinkyCheese.SPRITE_SIZE.getX();
         int y = yCoordinate * theStinkyCheese.SPRITE_SIZE.getY();
 
