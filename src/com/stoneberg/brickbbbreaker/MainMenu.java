@@ -13,8 +13,8 @@ public class MainMenu {
     private int creditsPerPlay;
 
     public MainMenu() {
-        titleFont = new Font("arial", Font.BOLD, 24);
-        mainFont = new Font("arial", Font.BOLD, 16);
+        titleFont = new Font("arial", Font.BOLD, 18);
+        mainFont = new Font("arial", Font.BOLD, 14);
         coinFont = new Font("arial", Font.BOLD, 12);
         numCredits = 0;
         creditsPerPlay = 4;
@@ -23,9 +23,9 @@ public class MainMenu {
     public void render() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
-        drawCenteredString("BRICK[BBB]REAKER", 60, titleFont, Color.WHITE);
-        drawCenteredString("Push [+] key to insert a coin", 520, mainFont, Color.WHITE);
-        drawCenteredString("Credits (" + numCredits + "/" + creditsPerPlay + ")", 540, coinFont, Color.RED);
+        drawCenteredString("BRICK[BBB]REAKER", 110, titleFont, Color.WHITE);
+        drawCenteredString("Push [+] key to insert a coin", 500, mainFont, Color.WHITE);
+        drawCenteredString("Credits (" + numCredits + "/" + creditsPerPlay + ")", 545, coinFont, Color.RED);
 
     }
 
