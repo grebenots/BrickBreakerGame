@@ -5,10 +5,13 @@ import java.io.File;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MainMenu {
 
     private BrickBBBreaker theStinkyCheese = null;
+    private HighScoreTable highScoreTable;
     private Font titleFont;
     private Font coinFont;
     private Font mainFont;
@@ -27,7 +30,10 @@ public class MainMenu {
     private float flickerSpeed;
     private boolean flickeringDown;
 
+    // TO DO, MOVE UI.JAVA stuff into MainMenu, with UI.java BEING A HELPER CLASS TO DRAW UI ELEMENTS
+
     public MainMenu() {
+        highScoreTable = new HighScoreTable();
         titleFont = new Font("arial", Font.BOLD, 18);
         mainFont = new Font("arial", Font.BOLD, 16);
         coinFont = new Font("arial", Font.BOLD, 12);
@@ -93,6 +99,19 @@ public class MainMenu {
             }
         }
 
+        // Display high score table
+        ArrayList elements = highScoreTable.getScores();
+        for(int i = 0; i < 10; i++) {
+            HighScoreElement element = (HighScoreElement)elements.get(i);
+
+            drawCenteredString("High Scores", 210, mainFont, Color.WHITE);
+
+            Color color = setRandomColor();
+            drawString(element.getName(), 125, (250 + (20 * i)), mainFont, color);
+            drawString(Integer.toString(element.getScore()), 265, (250 + (20 * i)), mainFont, color);
+            //System.out.println(element.getName() + " : " + element.getScore());
+        }
+
 
         // Opacity test stuff
         // float alpha = 0.1f;
@@ -109,6 +128,39 @@ public class MainMenu {
         AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, amount);
         Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
         g2.setComposite(alphaC);
+    }
+
+    private Color setRandomColor() {
+        Random random = new Random();
+        Color color = Color.WHITE;
+
+        switch (random.nextInt(5)) {
+            case 0:
+                color = Color.WHITE;
+                break;
+            case 1:
+                color = Color.GREEN;
+                break;
+            case 2:
+                color = Color.RED;
+                break;
+            case 3:
+                color = Color.BLUE;
+                break;
+            case 4:
+                color = Color.CYAN;
+                break;
+            case 5:
+                color = Color.MAGENTA;
+        }
+
+        return color;
+    }
+
+    private void drawString(String text, int x, int y, Font font, Color color) {
+        theStinkyCheese.getGraphics().setFont(font);
+        theStinkyCheese.getGraphics().setColor(color);
+        theStinkyCheese.getGraphics().drawString(text, x, y);
     }
 
     private void drawCenteredString(String text, int y, Font font, Color color) {
