@@ -56,10 +56,10 @@ public class InputController extends KeyAdapter {
         }
     }
 
-    private void gameReleased(KeyEvent e) {
+    private void gameReleased(KeyEvent e) {  // NOT DONE
         int key = e.getKeyCode();
 
-        if(key == KeyEvent.VK_RIGHT) {
+        if(key == KeyEvent.VK_RIGHT) {  // Change to getPlayer().moveRight() etc...
             theStinkyCheese.getPlayer().getVelocity().setX(0.0);
         } else if(key == KeyEvent.VK_LEFT) {
             theStinkyCheese.getPlayer().getVelocity().setX(0.0);
@@ -81,6 +81,9 @@ public class InputController extends KeyAdapter {
 
         if(key == KeyEvent.VK_EQUALS || key == KeyEvent.VK_PLUS) {
             theStinkyCheese.getMainMenu().insertCoin();
+        }
+        if(key == KeyEvent.VK_ENTER) {
+            theStinkyCheese.getMainMenu().useCredit();
         }
     }
 

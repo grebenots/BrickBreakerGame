@@ -87,6 +87,10 @@ public class BrickBBBreaker {
         return currentState;
     }
 
+    public void setCurrentState(GameState currentState) {
+        this.currentState = currentState;
+    }
+
     public MainMenu getMainMenu() {
         return mainMenu;
     }

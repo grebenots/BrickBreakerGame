@@ -190,4 +190,15 @@ public class MainMenu {
             coinClip.start();
         }
     }
+
+    public void useCredit() {
+        if(numCredits > 0) {
+            numCredits--;
+            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
+        }
+    }
+
+    public int getNumCredits() {
+        return numCredits;
+    }
 }
