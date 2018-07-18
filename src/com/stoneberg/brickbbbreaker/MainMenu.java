@@ -20,16 +20,26 @@ public class MainMenu {
     private File creditWav;
 
     private int numCoins;
-    private int coinsPerPlay;
+    private int numCredits;
+    private int coinsPerCredit;
+
+    private float currentAlpha;
+    private float flickerSpeed;
+    private boolean flickeringDown;
 
     public MainMenu() {
         titleFont = new Font("arial", Font.BOLD, 18);
-        mainFont = new Font("arial", Font.BOLD, 14);
+        mainFont = new Font("arial", Font.BOLD, 16);
         coinFont = new Font("arial", Font.BOLD, 12);
         githubFont = new Font("arial", Font.PLAIN, 10);
 
         numCoins = 0;
-        coinsPerPlay = 4;
+        numCredits = 0;
+        coinsPerCredit = 4;
+
+        currentAlpha = 1.0f;
+        flickerSpeed = 0.01f;
+        flickeringDown = true;
 
         try {
             coinClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
@@ -48,12 +58,54 @@ public class MainMenu {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
         drawCenteredString("BRICK[BBB]REAKER", 110, titleFont, Color.WHITE);
         drawCenteredString("https://github.com/grebenots/BrickBreakerGame", 165, githubFont, Color.WHITE);
-        drawCenteredString("Push [+] key to insert a coin", 500, mainFont, Color.WHITE);
-        drawCenteredString("Credits (" + numCoins + "/" + coinsPerPlay + ")", 545, coinFont, Color.RED);
 
-        if(numCoins >= coinsPerPlay) {
-            drawCenteredString("Push [Enter] to play!", 300, mainFont, Color.WHITE);
+        if(numCredits > 0) {
+            float minAlpha = .25f;
+            float maxAlpha = 1.0f;
+            float transparency = currentAlpha;
+
+            if(currentAlpha < minAlpha)
+                transparency = minAlpha;
+            if(currentAlpha > maxAlpha)
+                transparency = maxAlpha;
+
+            AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency);
+            Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
+            g2.setComposite(alphaC);
+            drawCenteredString("Push [Enter] to play!", 500, mainFont, Color.WHITE);
+            alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+            g2.setComposite(alphaC);
+
+            drawCenteredString("Credits " + numCredits + " (" + numCoins + "/" + coinsPerCredit + ")", 545, coinFont, Color.GREEN);
+        } else {
+            drawCenteredString("Push [+] key to insert a coin", 500, coinFont, Color.WHITE);
+            drawCenteredString("Credits 0 (" + numCoins + "/" + coinsPerCredit + ")", 545, coinFont, Color.RED);
         }
+
+        if(flickeringDown) {
+            currentAlpha -= flickerSpeed;
+            if(currentAlpha < 0) {
+                currentAlpha = 0;
+                flickeringDown = false;
+            }
+        } else {
+            currentAlpha += flickerSpeed;
+            if(currentAlpha > 1) {
+                currentAlpha = 1;
+                flickeringDown = true;
+            }
+        }
+
+
+        // Opacity test stuff
+        // float alpha = 0.1f;
+        // AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+        // Graphics2D gg = (Graphics2D)g;
+        // gg.setComposite(ac);
+        // gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
+        // ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
+        // gg.setComposite(ac);
+        // End opacity test
     }
 
     private void drawCenteredString(String text, int y, Font font, Color color) {
@@ -72,6 +124,8 @@ public class MainMenu {
         numCoins++;
 
         if(numCoins % 4 == 0) {
+            numCredits++;
+            numCoins = 0;
             creditClip.setFramePosition(0);
             creditClip.loop(0);
             creditClip.start();
