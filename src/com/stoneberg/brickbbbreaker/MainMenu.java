@@ -69,12 +69,9 @@ public class MainMenu {
             if(currentAlpha > maxAlpha)
                 transparency = maxAlpha;
 
-            AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency);
-            Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
-            g2.setComposite(alphaC);
+            setOpacity(transparency);
             drawCenteredString("Push [Enter] to play!", 500, mainFont, Color.WHITE);
-            alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-            g2.setComposite(alphaC);
+            setOpacity(1);
 
             drawCenteredString("Credits " + numCredits + " (" + numCoins + "/" + coinsPerCredit + ")", 545, coinFont, Color.GREEN);
         } else {
@@ -106,6 +103,12 @@ public class MainMenu {
         // ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
         // gg.setComposite(ac);
         // End opacity test
+    }
+
+    private void setOpacity(float amount) {
+        AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, amount);
+        Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
+        g2.setComposite(alphaC);
     }
 
     private void drawCenteredString(String text, int y, Font font, Color color) {
