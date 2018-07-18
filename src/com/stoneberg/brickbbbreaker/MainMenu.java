@@ -1,6 +1,12 @@
 package com.stoneberg.brickbbbreaker;
 
+import com.sun.media.sound.WaveFileReader;
+
 import java.awt.*;
+import java.io.File;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
 
 public class MainMenu {
 
@@ -8,6 +14,11 @@ public class MainMenu {
     private Font titleFont;
     private Font coinFont;
     private Font mainFont;
+
+    private Clip coinClip;
+    private Clip creditClip;
+    private File coinWav;
+    private File creditWav;
 
     private int numCredits;
     private int creditsPerPlay;
@@ -18,6 +29,15 @@ public class MainMenu {
         coinFont = new Font("arial", Font.BOLD, 12);
         numCredits = 0;
         creditsPerPlay = 4;
+
+        try {
+            coinClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            creditClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            coinWav = new File("../../../resources/insertCoin.wav");
+            creditWav = new File("../../../resources/insertCoin.wav");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void render() {
@@ -39,5 +59,24 @@ public class MainMenu {
         int x = theStinkyCheese.WINDOW_SIZE.getX().intValue() / 2 - titleWidth / 2;
 
         theStinkyCheese.getGraphics().drawString(text, x, y);
+    }
+
+    public void insertCoin() {
+        numCredits++;
+
+        try {
+            coinClip.open(AudioSystem.getAudioInputStream(coinWav));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public int getNumCredits() {
+        return numCredits;
+    }
+
+    public void setNumCredits(int numCredits) {
+        this.numCredits = numCredits;
     }
 }

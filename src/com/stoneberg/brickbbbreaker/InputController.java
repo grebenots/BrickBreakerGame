@@ -12,6 +12,34 @@ public class InputController extends KeyAdapter {
     }
 
     public void keyPressed(KeyEvent e) {
+        switch(theStinkyCheese.getCurrentState()) {
+            case MENU:
+                menuPressed(e);
+                break;
+            case GAME:
+                gamePressed(e);
+                break;
+            case PAUSED:
+                pausePressed(e);
+                break;
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        switch(theStinkyCheese.getCurrentState()) {
+            case MENU:
+                menuReleased(e);
+                break;
+            case GAME:
+                gameReleased(e);
+                break;
+            case PAUSED:
+                pauseReleased(e);
+                break;
+        }
+    }
+
+    private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
@@ -28,7 +56,7 @@ public class InputController extends KeyAdapter {
         }
     }
 
-    public void keyReleased(KeyEvent e) {
+    private void gameReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
@@ -42,5 +70,25 @@ public class InputController extends KeyAdapter {
         } else if(key == KeyEvent.VK_SPACE) {
             theStinkyCheese.getPlayer().setIsShooting(false);
         }
+    }
+
+    private void menuPressed(KeyEvent e) {
+
+    }
+
+    private void menuReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_EQUALS || key == KeyEvent.VK_PLUS) {
+            theStinkyCheese.getMainMenu().insertCoin();
+        }
+    }
+
+    private void pausePressed(KeyEvent e) {
+
+    }
+
+    private void pauseReleased(KeyEvent e) {
+
     }
 }
