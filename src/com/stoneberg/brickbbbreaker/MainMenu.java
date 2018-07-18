@@ -14,6 +14,7 @@ public class MainMenu {
     private Font titleFont;
     private Font coinFont;
     private Font mainFont;
+    private Font githubFont;
 
     private Clip coinClip;
     private Clip creditClip;
@@ -27,14 +28,19 @@ public class MainMenu {
         titleFont = new Font("arial", Font.BOLD, 18);
         mainFont = new Font("arial", Font.BOLD, 14);
         coinFont = new Font("arial", Font.BOLD, 12);
+        githubFont = new Font("arial", Font.PLAIN, 10);
+
         numCredits = 0;
         creditsPerPlay = 4;
 
         try {
             coinClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
             creditClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            coinWav = new File("../../../resources/insertCoin.wav");
-            creditWav = new File("../../../resources/insertCoin.wav");
+            coinWav = new File("src/resources/insertCoin.wav");
+            creditWav = new File("src/resources/insertCoin.wav");
+
+            coinClip.open(AudioSystem.getAudioInputStream(coinWav));
+            creditClip.open(AudioSystem.getAudioInputStream(creditWav));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -42,8 +48,8 @@ public class MainMenu {
 
     public void render() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
-
         drawCenteredString("BRICK[BBB]REAKER", 110, titleFont, Color.WHITE);
+        drawCenteredString("https://github.com/grebenots/BrickBreakerGame", 165, githubFont, Color.WHITE);
         drawCenteredString("Push [+] key to insert a coin", 500, mainFont, Color.WHITE);
         drawCenteredString("Credits (" + numCredits + "/" + creditsPerPlay + ")", 545, coinFont, Color.RED);
 
@@ -63,20 +69,8 @@ public class MainMenu {
 
     public void insertCoin() {
         numCredits++;
-
-        try {
-            coinClip.open(AudioSystem.getAudioInputStream(coinWav));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public int getNumCredits() {
-        return numCredits;
-    }
-
-    public void setNumCredits(int numCredits) {
-        this.numCredits = numCredits;
+        coinClip.setFramePosition(0);
+        coinClip.loop(0);
+        coinClip.start();
     }
 }
