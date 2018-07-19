@@ -44,7 +44,6 @@ public class BrickBBBreaker {
     // Game components
     private GameController gameController;
     private InputController inputController;
-    private MainMenu mainMenu;
     private UI UI;
     private Player player;
 

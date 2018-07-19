@@ -8,9 +8,8 @@ import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainMenu {
+public class MainMenuUI extends UI implements UIInterface {
 
-    private BrickBBBreaker theStinkyCheese = null;
     private HighScoreTable highScoreTable;
     private Font titleFont;
     private Font coinFont;
@@ -32,7 +31,7 @@ public class MainMenu {
 
     // TO DO, MOVE UI.JAVA stuff into MainMenu, with UI.java BEING A HELPER CLASS TO DRAW UI ELEMENTS
 
-    public MainMenu() {
+    public MainMenuUI() {
         highScoreTable = new HighScoreTable();
         titleFont = new Font("arial", Font.BOLD, 18);
         mainFont = new Font("arial", Font.BOLD, 16);
@@ -62,9 +61,38 @@ public class MainMenu {
 
     public void render() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
+
+        drawBorder();
+        drawStaticElements();
+        drawHighScores();
+        drawDynamicElements();
+    }
+
+    private void drawStaticElements() {
         drawCenteredString("BRICK[BBB]REAKER", 110, titleFont, Color.WHITE);
         drawCenteredString("https://github.com/grebenots/BrickBreakerGame", 165, githubFont, Color.WHITE);
 
+        // Bricks
+        for(int i = 1; i < 12; i++) {
+            drawBrickByCoordinate("brickRed", i, 3);
+            drawBrickByCoordinate("brickBlue", i, 4);
+
+            drawBrickByCoordinate("brickYellow", i, 7);
+            drawBrickByCoordinate("brickOrange", i, 8);
+        }
+
+        for(int i = 1; i < 3; i++) {
+            drawBrickByCoordinate("brickGreen", i, 5);
+            drawBrickByCoordinate("brickPurple", i, 6);
+        }
+
+        for(int i = 10; i < 12; i++) {
+            drawBrickByCoordinate("brickGreen", i, 5);
+            drawBrickByCoordinate("brickPurple", i, 6);
+        }
+    }
+
+    private void drawDynamicElements() {
         if(numCredits > 0) {
             float minAlpha = .25f;
             float maxAlpha = 1.0f;
@@ -98,81 +126,37 @@ public class MainMenu {
                 flickeringDown = true;
             }
         }
+    }
 
-        // Display high score table
+    private void drawHighScores() {
         ArrayList elements = highScoreTable.getScores();
         for(int i = 0; i < 10; i++) {
             HighScoreElement element = (HighScoreElement)elements.get(i);
 
             drawCenteredString("High Scores", 210, mainFont, Color.WHITE);
 
-            Color color = setRandomColor();
+            Color color = randomColor();
             drawString(element.getName(), 125, (250 + (20 * i)), mainFont, color);
             drawString(Integer.toString(element.getScore()), 265, (250 + (20 * i)), mainFont, color);
-            //System.out.println(element.getName() + " : " + element.getScore());
+        }
+    }
+
+    private void drawBorder() {
+        // Render the edge of the screen (13 tiles wide x 17 tiles tall)
+        drawSpriteByCoordinate("NW", 0, 0);
+        drawSpriteByCoordinate("NE", 12, 0);
+        drawSpriteByCoordinate("SW", 0, 16);
+        drawSpriteByCoordinate("SE", 12, 16);
+
+        for(int i = 1; i < 16; i++) {
+            drawSpriteByCoordinate("W", 0, i);
+            drawSpriteByCoordinate("E", 12, i);
         }
 
-
-        // Opacity test stuff
-        // float alpha = 0.1f;
-        // AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-        // Graphics2D gg = (Graphics2D)g;
-        // gg.setComposite(ac);
-        // gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
-        // ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-        // gg.setComposite(ac);
-        // End opacity test
-    }
-
-    private void setOpacity(float amount) {
-        AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, amount);
-        Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
-        g2.setComposite(alphaC);
-    }
-
-    private Color setRandomColor() {
-        Random random = new Random();
-        Color color = Color.WHITE;
-
-        switch (random.nextInt(5)) {
-            case 0:
-                color = Color.WHITE;
-                break;
-            case 1:
-                color = Color.GREEN;
-                break;
-            case 2:
-                color = Color.RED;
-                break;
-            case 3:
-                color = Color.BLUE;
-                break;
-            case 4:
-                color = Color.CYAN;
-                break;
-            case 5:
-                color = Color.MAGENTA;
+        for(int i = 1; i < 12; i++) {
+            drawSpriteByCoordinate("N", i, 0);
+            drawSpriteByCoordinate("S", i, 16);
         }
-
-        return color;
-    }
-
-    private void drawString(String text, int x, int y, Font font, Color color) {
-        theStinkyCheese.getGraphics().setFont(font);
-        theStinkyCheese.getGraphics().setColor(color);
-        theStinkyCheese.getGraphics().drawString(text, x, y);
-    }
-
-    private void drawCenteredString(String text, int y, Font font, Color color) {
-        theStinkyCheese.getGraphics().setFont(font);
-        theStinkyCheese.getGraphics().setColor(color);
-
-        // Calculate center
-        FontMetrics metrics = theStinkyCheese.getGraphics().getFontMetrics(font);
-        int titleWidth = metrics.stringWidth(text);
-        int x = theStinkyCheese.WINDOW_SIZE.getX().intValue() / 2 - titleWidth / 2;
-
-        theStinkyCheese.getGraphics().drawString(text, x, y);
     }
 
     public void insertCoin() {
@@ -196,9 +180,5 @@ public class MainMenu {
             numCredits--;
             theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
         }
-    }
-
-    public int getNumCredits() {
-        return numCredits;
     }
 }

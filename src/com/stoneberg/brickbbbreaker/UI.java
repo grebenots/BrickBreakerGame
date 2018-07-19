@@ -1,12 +1,26 @@
 package com.stoneberg.brickbbbreaker;
 
-public class UI extends Entity {
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Map;
+import java.util.Random;
+
+public class UI implements UIInterface {
+
+    protected BrickBBBreaker theStinkyCheese = null;
+    private Map<String, BufferedImage> sprites;
+    private MainMenuUI mainMenuUI;
+    private GameUI gameUI;
+    private PauseUI pauseUI;
 
     public UI() {
-        super();
-        position.set(0.0, 0.0);
-        velocity.set(0.0, 0.0);
+        updateTheCheese();
+        mainMenuUI = new MainMenuUI();
+        gameUI = new GameUI();
+        pauseUI = new PauseUI();
 
+
+        // Add UI sprites to main UI class
         sprites.put("NW", theStinkyCheese.getSpriteSheet().getSprite(1,3,32,32));
         sprites.put("N", theStinkyCheese.getSpriteSheet().getSprite(2,3,32,32));
         sprites.put("NE", theStinkyCheese.getSpriteSheet().getSprite(3,3,32,32));
@@ -24,61 +38,94 @@ public class UI extends Entity {
         sprites.put("brickPurple", theStinkyCheese.getSpriteSheet().getSprite(6,2,32,32));
     }
 
-    public void tick() {
-
-    }
-
     public void render() {
-        updateTheCheese();
-
-        // Render the edge of the screen (13 tiles wide x 17 tiles tall)
-        drawSpriteByCoordinate("NW", 0, 0);
-        drawSpriteByCoordinate("NE", 12, 0);
-        drawSpriteByCoordinate("SW", 0, 16);
-        drawSpriteByCoordinate("SE", 12, 16);
-
-        for(int i = 1; i < 16; i++) {
-            drawSpriteByCoordinate("W", 0, i);
-            drawSpriteByCoordinate("E", 12, i);
+        switch(theStinkyCheese.getCurrentState()) {
+            case MENU:
+                mainMenuUI.render();
+                break;
+            case GAME:
+                gameUI.render();
+                break;
+            case PAUSED:
+                pauseUI.render();
+                break;
         }
-
-        for(int i = 1; i < 12; i++) {
-            drawSpriteByCoordinate("N", i, 0);
-            drawSpriteByCoordinate("S", i, 16);
-        }
-
-        // Render bricks
-        for(int i = 1; i < 12; i++) {
-            drawBrickByCoordinate("brickRed", i, 3);
-            drawBrickByCoordinate("brickBlue", i, 4);
-
-            drawBrickByCoordinate("brickYellow", i, 7);
-            drawBrickByCoordinate("brickOrange", i, 8);
-        }
-
-        for(int i = 1; i < 3; i++) {
-            drawBrickByCoordinate("brickGreen", i, 5);
-            drawBrickByCoordinate("brickPurple", i, 6);
-        }
-
-        for(int i = 10; i < 12; i++) {
-            drawBrickByCoordinate("brickGreen", i, 5);
-            drawBrickByCoordinate("brickPurple", i, 6);
-        }
-
     }
 
-    private void drawSpriteByCoordinate(String name, int xCoordinate, int yCoordinate) {
+    protected void drawSpriteByCoordinate(String name, int xCoordinate, int yCoordinate) {
         int x = xCoordinate * theStinkyCheese.SPRITE_SIZE.getX();
         int y = yCoordinate * theStinkyCheese.SPRITE_SIZE.getY();
 
         theStinkyCheese.getGraphics().drawImage(sprites.get(name), x, y, null);
     }
 
-    private void drawBrickByCoordinate(String name, int xCoordinate, int yCoordinate) {
+    protected void drawBrickByCoordinate(String name, int xCoordinate, int yCoordinate) {
         int x = xCoordinate * theStinkyCheese.SPRITE_SIZE.getX();
         int y = yCoordinate * theStinkyCheese.SPRITE_SIZE.getY() / 2;
 
         theStinkyCheese.getGraphics().drawImage(sprites.get(name), x, y, null);
+    }
+
+    protected void drawString(String text, int x, int y, Font font, Color color) {
+        theStinkyCheese.getGraphics().setFont(font);
+        theStinkyCheese.getGraphics().setColor(color);
+        theStinkyCheese.getGraphics().drawString(text, x, y);
+    }
+
+    protected void drawCenteredString(String text, int y, Font font, Color color) {
+        theStinkyCheese.getGraphics().setFont(font);
+        theStinkyCheese.getGraphics().setColor(color);
+
+        // Calculate center
+        FontMetrics metrics = theStinkyCheese.getGraphics().getFontMetrics(font);
+        int titleWidth = metrics.stringWidth(text);
+        int x = theStinkyCheese.WINDOW_SIZE.getX().intValue() / 2 - titleWidth / 2;
+
+        theStinkyCheese.getGraphics().drawString(text, x, y);
+    }
+
+    protected void setOpacity(float amount) {
+        AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, amount);
+        Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
+        g2.setComposite(alphaC);
+    }
+
+    protected Color randomColor() {
+        Random random = new Random();
+        Color color = Color.WHITE;
+
+        switch (random.nextInt(5)) {
+            case 0:
+                color = Color.WHITE;
+                break;
+            case 1:
+                color = Color.GREEN;
+                break;
+            case 2:
+                color = Color.RED;
+                break;
+            case 3:
+                color = Color.BLUE;
+                break;
+            case 4:
+                color = Color.CYAN;
+                break;
+            case 5:
+                color = Color.MAGENTA;
+        }
+
+        return color;
+    }
+
+    protected final void updateTheCheese() {
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();
+    }
+
+    protected final void addSprite(String name, BufferedImage image) {
+        sprites.put(name, image);
+    }
+
+    protected final Map<String, BufferedImage> getSprites() {
+        return sprites;
     }
 }
