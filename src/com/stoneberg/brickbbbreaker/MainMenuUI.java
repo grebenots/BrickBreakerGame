@@ -6,9 +6,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class MainMenuUI extends UI implements UIInterface {
+public class MainMenuUI extends UI {
 
     private HighScoreTable highScoreTable;
     private Font titleFont;
@@ -28,8 +27,6 @@ public class MainMenuUI extends UI implements UIInterface {
     private float currentAlpha;
     private float flickerSpeed;
     private boolean flickeringDown;
-
-    // TO DO, MOVE UI.JAVA stuff into MainMenu, with UI.java BEING A HELPER CLASS TO DRAW UI ELEMENTS
 
     public MainMenuUI() {
         highScoreTable = new HighScoreTable();
@@ -66,6 +63,29 @@ public class MainMenuUI extends UI implements UIInterface {
         drawStaticElements();
         drawHighScores();
         drawDynamicElements();
+    }
+
+    public void insertCoin() {
+        numCoins++;
+
+        if(numCoins % 4 == 0) {
+            numCredits++;
+            numCoins = 0;
+            creditClip.setFramePosition(0);
+            creditClip.loop(0);
+            creditClip.start();
+        } else {
+            coinClip.setFramePosition(0);
+            coinClip.loop(0);
+            coinClip.start();
+        }
+    }
+
+    public void useCredit() {
+        if(numCredits > 0) {
+            numCredits--;
+            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
+        }
     }
 
     private void drawStaticElements() {
@@ -156,29 +176,6 @@ public class MainMenuUI extends UI implements UIInterface {
         for(int i = 1; i < 12; i++) {
             drawSpriteByCoordinate("N", i, 0);
             drawSpriteByCoordinate("S", i, 16);
-        }
-    }
-
-    public void insertCoin() {
-        numCoins++;
-
-        if(numCoins % 4 == 0) {
-            numCredits++;
-            numCoins = 0;
-            creditClip.setFramePosition(0);
-            creditClip.loop(0);
-            creditClip.start();
-        } else {
-            coinClip.setFramePosition(0);
-            coinClip.loop(0);
-            coinClip.start();
-        }
-    }
-
-    public void useCredit() {
-        if(numCredits > 0) {
-            numCredits--;
-            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
         }
     }
 }

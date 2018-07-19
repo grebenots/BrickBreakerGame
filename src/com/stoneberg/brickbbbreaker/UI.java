@@ -2,25 +2,22 @@ package com.stoneberg.brickbbbreaker;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class UI implements UIInterface {
+public abstract class UI {
 
     protected BrickBBBreaker theStinkyCheese = null;
     private Map<String, BufferedImage> sprites;
-    private MainMenuUI mainMenuUI;
-    private GameUI gameUI;
-    private PauseUI pauseUI;
+
+    public abstract void render();
 
     public UI() {
         updateTheCheese();
-        mainMenuUI = new MainMenuUI();
-        gameUI = new GameUI();
-        pauseUI = new PauseUI();
-
 
         // Add UI sprites to main UI class
+        sprites = new HashMap<String, BufferedImage>();
         sprites.put("NW", theStinkyCheese.getSpriteSheet().getSprite(1,3,32,32));
         sprites.put("N", theStinkyCheese.getSpriteSheet().getSprite(2,3,32,32));
         sprites.put("NE", theStinkyCheese.getSpriteSheet().getSprite(3,3,32,32));
@@ -38,18 +35,8 @@ public class UI implements UIInterface {
         sprites.put("brickPurple", theStinkyCheese.getSpriteSheet().getSprite(6,2,32,32));
     }
 
-    public void render() {
-        switch(theStinkyCheese.getCurrentState()) {
-            case MENU:
-                mainMenuUI.render();
-                break;
-            case GAME:
-                gameUI.render();
-                break;
-            case PAUSED:
-                pauseUI.render();
-                break;
-        }
+    protected Font createNewFont(String name, int style, int size) {
+        return new Font(name, style, size);
     }
 
     protected void drawSpriteByCoordinate(String name, int xCoordinate, int yCoordinate) {

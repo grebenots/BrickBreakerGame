@@ -44,7 +44,9 @@ public class BrickBBBreaker {
     // Game components
     private GameController gameController;
     private InputController inputController;
-    private UI UI;
+    private MainMenuUI mainMenuUI;
+    private GameUI gameUI;
+    private PauseUI pauseUI;
     private Player player;
 
     // Sprite Sheets
@@ -90,12 +92,16 @@ public class BrickBBBreaker {
         this.currentState = currentState;
     }
 
-    public MainMenu getMainMenu() {
-        return mainMenu;
+    public MainMenuUI getMainMenuUI() {
+        return mainMenuUI;
     }
 
-    public UI getUI() {
-        return UI;
+    public GameUI getGameUI() {
+        return gameUI;
+    }
+
+    public PauseUI getPauseUI() {
+        return pauseUI;
     }
 
     public Player getPlayer() {
@@ -130,8 +136,9 @@ public class BrickBBBreaker {
 
         gameController = new GameController();
         inputController = new InputController();
-        mainMenu = new MainMenu();
-        UI = new UI();
+        mainMenuUI = new MainMenuUI();
+        gameUI = new GameUI();
+        pauseUI = new PauseUI();
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);

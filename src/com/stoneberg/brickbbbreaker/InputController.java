@@ -80,10 +80,10 @@ public class InputController extends KeyAdapter {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_EQUALS || key == KeyEvent.VK_PLUS) {
-            theStinkyCheese.getMainMenu().insertCoin();
+            theStinkyCheese.getMainMenuUI().insertCoin();
         }
         if(key == KeyEvent.VK_ENTER) {
-            theStinkyCheese.getMainMenu().useCredit();
+            theStinkyCheese.getMainMenuUI().useCredit();
         }
     }
 

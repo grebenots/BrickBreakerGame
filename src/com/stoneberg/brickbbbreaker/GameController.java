@@ -75,8 +75,7 @@ public class GameController {
     }
 
     private void renderMenu() {
-        theStinkyCheese.getUI().render();
-        theStinkyCheese.getMainMenu().render();
+        theStinkyCheese.getMainMenuUI().render();
     }
 
     private void renderGame() {
