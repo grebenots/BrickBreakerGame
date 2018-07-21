@@ -1,7 +1,9 @@
 package com.stoneberg.brickbbbreaker;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class BrickBBBreaker {
 
@@ -49,6 +51,9 @@ public class BrickBBBreaker {
     private PauseUI pauseUI;
     private Player player;
 
+    // Levels
+    private Map<Integer, Level> levels = null;
+
     // Sprite Sheets
     private SpriteSheet spriteSheet;
 
@@ -69,6 +74,7 @@ public class BrickBBBreaker {
                     currentGame.currentState = GameState.MENU;
                     currentGame.sayHello();
                     currentGame.initComponents();
+                    currentGame.initLevels();
                 }
             }
         }
@@ -116,6 +122,10 @@ public class BrickBBBreaker {
         return graphics;
     }
 
+    public Map<Integer, Level> getLevels() {
+        return levels;
+    }
+
     public void setGraphics(Graphics graphics) {
         this.graphics = graphics;
     }
@@ -142,6 +152,21 @@ public class BrickBBBreaker {
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);
+    }
+
+    private void initLevels() {
+        levels = new HashMap<>();
+
+        Level level = new Level(0);
+        for(int i = 1; i < 12; i++) {
+            level.addBrick(i,5,Brick.BrickType.BLUE);
+            level.addBrick(i,6,Brick.BrickType.PURPLE);
+            level.addBrick(i,7, Brick.BrickType.YELLOW);
+            level.addBrick(i,8, Brick.BrickType.GREEN);
+            level.addBrick(i,9, Brick.BrickType.RED);
+        }
+
+        levels.put(0, level);
     }
 
     public void AddDebugLog(String message) {

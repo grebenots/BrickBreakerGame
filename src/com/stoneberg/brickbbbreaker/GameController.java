@@ -2,6 +2,8 @@ package com.stoneberg.brickbbbreaker;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameController {
 
@@ -17,13 +19,13 @@ public class GameController {
         // Now we render based upon the current game state
         switch(theStinkyCheese.getCurrentState()) {
             case MENU:
-                tickMenu();
+                tickMenuState();
                 break;
             case GAME:
-                tickGame();
+                tickGameState();
                 break;
             case PAUSED:
-                tickPause();
+                tickPauseState();
                 break;
         }
     }
@@ -39,22 +41,23 @@ public class GameController {
         // Now we render based upon the current game state
         switch(theStinkyCheese.getCurrentState()) {
             case MENU:
-                renderMenu();
+                renderMenuState();
                 break;
             case GAME:
-                renderGame();
+                renderGameState();
                 break;
             case PAUSED:
-                renderPause();
+                renderPauseState();
                 break;
         }
     }
 
-    private void tickMenu() {
+    // Ticking
+    private void tickMenuState() {
 
     }
 
-    private void tickGame() {
+    private void tickGameState() {
         // Tick player
         theStinkyCheese.getPlayer().tick();
 
@@ -70,23 +73,30 @@ public class GameController {
 
     }
 
-    private void tickPause() {
+    private void tickPauseState() {
 
     }
 
-    private void renderMenu() {
+    // Rendering
+    private void renderMenuState() {
         theStinkyCheese.getMainMenuUI().render();
     }
 
-    private void renderGame() {
+    private void renderGameState() {
         // Render UI
         theStinkyCheese.getGameUI().render();
 
         // Render player
         theStinkyCheese.getPlayer().render();
 
-        // Render bricks
-
+        // Render bricks for current level
+        Level currentLevel = theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel());
+        Map<Generic2D<Integer>, Brick> currentBricks = currentLevel.getBricks();
+        for(Generic2D<Integer> key : currentBricks.keySet()) {
+            Brick brick = currentBricks.get(key);
+            Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
+            theStinkyCheese.getGameUI().drawBrickByCoordinate(brick.getBrickName(), currentCoordinate.getX(), currentCoordinate.getY());
+        }
 
         // Render ball
 
@@ -106,7 +116,7 @@ public class GameController {
         // End opacity test
     }
 
-    private void renderPause() {
+    private void renderPauseState() {
 
     }
 }

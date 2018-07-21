@@ -3,12 +3,16 @@ package com.stoneberg.brickbbbreaker;
 public class Player extends Entity {
 
     private boolean isShooting;
+    private int currentLevel;
+    private int currentScore;
 
     public Player(double x, double y) {
         super();
         position.set(x,y);
         velocity.set(0.0, 0.0);
         isShooting = false;
+        currentScore = 0;
+        currentLevel = 0;
 
         sprites.put("paddleLeft", theStinkyCheese.getSpriteSheet().getSprite(1,1,32,32));
         sprites.put("paddleCenter", theStinkyCheese.getSpriteSheet().getSprite(2,1,32,32));
@@ -56,6 +60,14 @@ public class Player extends Entity {
 
     public void setIsShooting(boolean isShooting) {
         this.isShooting = isShooting;
+    }
+
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 
     public Generic2D<Double> getVelocity() {

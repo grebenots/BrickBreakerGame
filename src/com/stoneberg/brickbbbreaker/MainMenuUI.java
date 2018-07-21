@@ -10,10 +10,6 @@ import java.util.ArrayList;
 public class MainMenuUI extends UI {
 
     private HighScoreTable highScoreTable;
-    private Font titleFont;
-    private Font coinFont;
-    private Font mainFont;
-    private Font githubFont;
 
     private Clip coinClip;
     private Clip creditClip;
@@ -30,11 +26,6 @@ public class MainMenuUI extends UI {
 
     public MainMenuUI() {
         highScoreTable = new HighScoreTable();
-        titleFont = new Font("arial", Font.BOLD, 18);
-        mainFont = new Font("arial", Font.BOLD, 16);
-        coinFont = new Font("arial", Font.BOLD, 12);
-        githubFont = new Font("arial", Font.PLAIN, 10);
-
         numCoins = 0;
         numCredits = 0;
         coinsPerCredit = 4;
@@ -61,7 +52,6 @@ public class MainMenuUI extends UI {
 
         drawBorder();
         drawStaticElements();
-        drawHighScores();
         drawDynamicElements();
     }
 
@@ -113,6 +103,8 @@ public class MainMenuUI extends UI {
     }
 
     private void drawDynamicElements() {
+        drawCurrentScore();
+        drawHighScores();
         if(numCredits > 0) {
             float minAlpha = .25f;
             float maxAlpha = 1.0f;

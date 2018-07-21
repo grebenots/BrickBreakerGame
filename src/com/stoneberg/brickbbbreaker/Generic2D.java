@@ -26,6 +26,16 @@ public class Generic2D<T> {
         return this;
     }
 
+    public boolean equals(Object o) {
+
+        if(o instanceof Generic2D) {
+            Generic2D other = (Generic2D)o;
+            if(other.x == this.x && other.y == this.y)
+                return true;
+        }
+        return false;
+    }
+
     public T getX() {
         return x;
     }

@@ -11,6 +11,12 @@ public abstract class UI {
     protected BrickBBBreaker theStinkyCheese = null;
     private Map<String, BufferedImage> sprites;
 
+    protected Font titleFont;
+    protected Font coinFont;
+    protected Font mainFont;
+    protected Font githubFont;
+    protected Font scoreFont;
+
     public abstract void render();
 
     public UI() {
@@ -33,6 +39,12 @@ public abstract class UI {
         sprites.put("brickOrange", theStinkyCheese.getSpriteSheet().getSprite(4,2,32,32));
         sprites.put("brickYellow", theStinkyCheese.getSpriteSheet().getSprite(5,2,32,32));
         sprites.put("brickPurple", theStinkyCheese.getSpriteSheet().getSprite(6,2,32,32));
+
+        titleFont = new Font("arial", Font.BOLD, 18);
+        mainFont = new Font("arial", Font.BOLD, 16);
+        coinFont = new Font("arial", Font.BOLD, 12);
+        githubFont = new Font("arial", Font.PLAIN, 10);
+        scoreFont = new Font("arial", Font.BOLD, 16);
     }
 
     protected Font createNewFont(String name, int style, int size) {
@@ -87,6 +99,10 @@ public abstract class UI {
             drawSpriteByCoordinate("N", i, 1);
             //drawSpriteByCoordinate("S", i, 16);
         }
+    }
+
+    protected void drawCurrentScore() {
+        drawCenteredString("SCORE:  " + Integer.toString(theStinkyCheese.getPlayer().getCurrentScore()), 24, scoreFont, Color.RED);
     }
 
     protected void setOpacity(float amount) {
