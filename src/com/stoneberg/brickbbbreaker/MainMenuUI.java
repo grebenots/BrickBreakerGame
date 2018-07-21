@@ -124,12 +124,12 @@ public class MainMenuUI extends UI {
                 transparency = maxAlpha;
 
             setOpacity(transparency);
-            drawCenteredString("Push [Enter] to play!", 500, mainFont, Color.WHITE);
+            drawCenteredString("Push [Enter] to play!", 525, mainFont, Color.WHITE);
             setOpacity(1);
 
             drawCenteredString("Credits " + numCredits + " (" + numCoins + "/" + coinsPerCredit + ")", 545, coinFont, Color.GREEN);
         } else {
-            drawCenteredString("Push [+] key to insert a coin", 500, coinFont, Color.WHITE);
+            drawCenteredString("Push [+] key to insert a coin", 525, coinFont, Color.WHITE);
             drawCenteredString("Credits 0 (" + numCoins + "/" + coinsPerCredit + ")", 545, coinFont, Color.RED);
         }
 
