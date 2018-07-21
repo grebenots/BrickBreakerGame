@@ -9,9 +9,7 @@ public class GameController {
 
     private BrickBBBreaker theStinkyCheese = null;
 
-    public GameController() {
-
-    }
+    public GameController() { }
 
     public void tick() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
