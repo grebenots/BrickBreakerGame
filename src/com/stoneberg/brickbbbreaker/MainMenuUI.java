@@ -89,26 +89,26 @@ public class MainMenuUI extends UI {
     }
 
     private void drawStaticElements() {
-        drawCenteredString("BRICK[BBB]REAKER", 110, titleFont, Color.WHITE);
-        drawCenteredString("https://github.com/grebenots/BrickBreakerGame", 165, githubFont, Color.WHITE);
+        drawCenteredString("BRICK[BBB]REAKER", 142, titleFont, Color.WHITE);
+        drawCenteredString("https://github.com/grebenots/BrickBreakerGame", 200, githubFont, Color.WHITE);
 
         // Bricks
         for(int i = 1; i < 12; i++) {
-            drawBrickByCoordinate("brickRed", i, 3);
-            drawBrickByCoordinate("brickBlue", i, 4);
+            drawBrickByCoordinate("brickRed", i, 5);
+            drawBrickByCoordinate("brickBlue", i, 6);
 
-            drawBrickByCoordinate("brickYellow", i, 7);
-            drawBrickByCoordinate("brickOrange", i, 8);
+            drawBrickByCoordinate("brickYellow", i, 9);
+            drawBrickByCoordinate("brickOrange", i, 10);
         }
 
         for(int i = 1; i < 3; i++) {
-            drawBrickByCoordinate("brickGreen", i, 5);
-            drawBrickByCoordinate("brickPurple", i, 6);
+            drawBrickByCoordinate("brickGreen", i, 7);
+            drawBrickByCoordinate("brickPurple", i, 8);
         }
 
         for(int i = 10; i < 12; i++) {
-            drawBrickByCoordinate("brickGreen", i, 5);
-            drawBrickByCoordinate("brickPurple", i, 6);
+            drawBrickByCoordinate("brickGreen", i, 7);
+            drawBrickByCoordinate("brickPurple", i, 8);
         }
     }
 
@@ -153,11 +153,11 @@ public class MainMenuUI extends UI {
         for(int i = 0; i < 10; i++) {
             HighScoreElement element = (HighScoreElement)elements.get(i);
 
-            drawCenteredString("High Scores", 210, mainFont, Color.WHITE);
+            drawCenteredString("High Scores", 230, mainFont, Color.WHITE);
 
             Color color = randomColor();
-            drawString(element.getName(), 125, (250 + (20 * i)), mainFont, color);
-            drawString(Integer.toString(element.getScore()), 265, (250 + (20 * i)), mainFont, color);
+            drawString(element.getName(), 125, (270 + (20 * i)), mainFont, color);
+            drawString(Integer.toString(element.getScore()), 265, (270 + (20 * i)), mainFont, color);
         }
     }
 

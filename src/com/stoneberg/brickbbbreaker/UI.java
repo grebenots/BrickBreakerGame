@@ -73,18 +73,18 @@ public abstract class UI {
 
     protected void drawBorder() {
         // Render the edge of the screen (13 tiles wide x 17 tiles tall)
-        drawSpriteByCoordinate("NW", 0, 0);
-        drawSpriteByCoordinate("NE", 12, 0);
+        drawSpriteByCoordinate("NW", 0, 1);
+        drawSpriteByCoordinate("NE", 12, 1);
         //drawSpriteByCoordinate("SE", 0, 17);
         //drawSpriteByCoordinate("SW", 12, 17);
 
-        for(int i = 1; i < 18; i++) {
+        for(int i = 2; i < 18; i++) {
             drawSpriteByCoordinate("W", 0, i);
             drawSpriteByCoordinate("E", 12, i);
         }
 
         for(int i = 1; i < 12; i++) {
-            drawSpriteByCoordinate("N", i, 0);
+            drawSpriteByCoordinate("N", i, 1);
             //drawSpriteByCoordinate("S", i, 16);
         }
     }
