@@ -11,8 +11,6 @@ public class LoadLevelUI extends UI {
     private double timerCurrent;
     private double timerEnd;
 
-    private Timer timer;
-
     public LoadLevelUI() {
         currentAlpha = 1.0f;
         flickeringDown = true;
