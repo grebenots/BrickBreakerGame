@@ -16,6 +16,7 @@ public abstract class UI {
     protected Font mainFont;
     protected Font githubFont;
     protected Font scoreFont;
+    protected Font largeFont;
 
     public abstract void render();
 
@@ -45,6 +46,7 @@ public abstract class UI {
         coinFont = new Font("arial", Font.BOLD, 12);
         githubFont = new Font("arial", Font.PLAIN, 10);
         scoreFont = new Font("arial", Font.BOLD, 16);
+        largeFont = new Font("arial", Font.BOLD, 24);
     }
 
     protected Font createNewFont(String name, int style, int size) {

@@ -74,7 +74,7 @@ public class MainMenuUI extends UI {
     public void useCredit() {
         if(numCredits > 0) {
             numCredits--;
-            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
+            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.LOADLEVEL);
         }
     }
 

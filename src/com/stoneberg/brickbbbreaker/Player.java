@@ -5,6 +5,7 @@ public class Player extends Entity {
     private boolean isShooting;
     private int currentLevel;
     private int currentScore;
+    private int numLives;
 
     public Player(double x, double y) {
         super();
@@ -13,6 +14,7 @@ public class Player extends Entity {
         isShooting = false;
         currentScore = 0;
         currentLevel = 0;
+        numLives = 3;
 
         sprites.put("paddleLeft", theStinkyCheese.getSpriteSheet().getSprite(1,1,32,32));
         sprites.put("paddleCenter", theStinkyCheese.getSpriteSheet().getSprite(2,1,32,32));
@@ -68,6 +70,10 @@ public class Player extends Entity {
 
     public int getCurrentLevel() {
         return currentLevel;
+    }
+
+    public int getNumLives() {
+        return numLives;
     }
 
     public Generic2D<Double> getVelocity() {

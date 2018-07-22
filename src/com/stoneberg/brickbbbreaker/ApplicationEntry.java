@@ -65,11 +65,15 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
     }
 
+    // All ticking
     private void tick() {
 
         switch(theStinkyCheese.getCurrentState()) {  // Begin State Machine
             case MENU:
                 tickMenuState();
+                break;
+            case LOADLEVEL:
+                tickLoadLevelState();
                 break;
             case GAME:
                 tickGameState();
@@ -104,7 +108,11 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
     }
 
+    private void tickLoadLevelState() {
 
+    }
+
+    // All rendering
     private void render() {
 
         BufferStrategy bs = this.getBufferStrategy();
@@ -123,6 +131,9 @@ public class ApplicationEntry extends Canvas implements Runnable {
             case MENU:
                 renderMenuState();
                 break;
+            case LOADLEVEL:
+                renderLoadLevelState();
+                break;
             case GAME:
                 renderGameState();
                 break;
@@ -136,7 +147,6 @@ public class ApplicationEntry extends Canvas implements Runnable {
         bs.show();
     }
 
-    // Rendering
     private void renderMenuState() {
         theStinkyCheese.getMainMenuUI().render();
     }
@@ -159,10 +169,17 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
     }
 
+    private void renderLoadLevelState() {
+        // Render UI
+        theStinkyCheese.getLoadLevelUI().render();
+
+        // Render player
+        theStinkyCheese.getPlayer().render();
+    }
 
 
     private void init() {  // NOT DONE
-        requestFocus();
+        requestFocus();  // NOT DONE
     }
 
     private synchronized void start() {
@@ -223,4 +240,5 @@ public class ApplicationEntry extends Canvas implements Runnable {
         }
         stop();
     }
+
 }

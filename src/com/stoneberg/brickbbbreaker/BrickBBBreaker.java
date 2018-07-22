@@ -34,7 +34,8 @@ public class BrickBBBreaker {
     public enum GameState {
         MENU,
         GAME,
-        PAUSED
+        PAUSED,
+        LOADLEVEL
     }
 
     // Current Game State
@@ -49,6 +50,7 @@ public class BrickBBBreaker {
     private MainMenuUI mainMenuUI;
     private GameUI gameUI;
     private PauseUI pauseUI;
+    private LoadLevelUI loadLevelUI;
     private Player player;
 
     // Levels
@@ -110,6 +112,10 @@ public class BrickBBBreaker {
         return pauseUI;
     }
 
+    public LoadLevelUI getLoadLevelUI() {
+        return loadLevelUI;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -149,6 +155,7 @@ public class BrickBBBreaker {
         mainMenuUI = new MainMenuUI();
         gameUI = new GameUI();
         pauseUI = new PauseUI();
+        loadLevelUI = new LoadLevelUI();
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
 
         AddDebugLog("Initialized Components", true);
