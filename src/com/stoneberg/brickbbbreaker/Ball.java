@@ -25,7 +25,7 @@ public class Ball extends Entity {
     public void beginLevel() {
         Generic2D<Double> playerPosition = theStinkyCheese.getPlayer().getPosition();
         position.set(playerPosition.getX(), playerPosition.getY() - 16);
-        velocity = new Generic2D<Double>(2.0, -.1);
+        velocity = new Generic2D<Double>(4.0, -4.0);
     }
 
 
@@ -51,6 +51,22 @@ public class Ball extends Entity {
                 x = theStinkyCheese.WINDOW_SIZE.getX()  - theStinkyCheese.SPRITE_SIZE.getX() * 1.5 - 4;
                 horizontalDirection = Direction.LEFT;
                 velocity.setX(velocity.getX() * -1);
+            }
+        }
+
+        if(verticalDirection == Direction.UP) {
+            if (y <= theStinkyCheese.SPRITE_SIZE.getY() * 1.5 + 4) {
+                y = theStinkyCheese.SPRITE_SIZE.getY() * 1.5 + 4;
+                verticalDirection = Direction.DOWN;
+                velocity.setY(velocity.getY() * -1);
+            }
+        }
+
+        if(verticalDirection == Direction.DOWN) {
+            if (y >= theStinkyCheese.WINDOW_SIZE.getY() + theStinkyCheese.SPRITE_SIZE.getY()) {
+                y = theStinkyCheese.WINDOW_SIZE.getY()  + theStinkyCheese.SPRITE_SIZE.getY();
+                verticalDirection = Direction.UP;
+                velocity.setY(velocity.getY() * -1);
             }
         }
 
