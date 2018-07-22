@@ -33,8 +33,10 @@ public class LoadLevelUI extends UI {
         }
         timerCurrent = System.nanoTime();
 
-        if(timerCurrent >= timerEnd)
-            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);
+        if(timerCurrent >= timerEnd) {
+            theStinkyCheese.getBall().beginLevel();
+            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);  // Change to an "enter function that resides in BBBrickbreaker
+        }
 
     }
 

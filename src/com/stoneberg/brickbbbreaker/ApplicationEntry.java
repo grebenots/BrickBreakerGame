@@ -96,6 +96,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
 
         // Tick ball
+        theStinkyCheese.getBall().tick();
 
 
         // Tick More Stuff...
@@ -159,6 +160,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
         theStinkyCheese.getPlayer().render();
 
         // Render ball
+        theStinkyCheese.getBall().render();
 
 
         // Render More Stuff...

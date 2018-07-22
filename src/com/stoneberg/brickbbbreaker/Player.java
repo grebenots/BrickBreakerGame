@@ -30,8 +30,8 @@ public class Player extends Entity {
         x += velocity.getX();
         y += velocity.getY();
 
-        if(x <= theStinkyCheese.SPRITE_SIZE.getX() / 2)
-            x = theStinkyCheese.SPRITE_SIZE.getX() / 2;  // Restricts the player from moving off the left of screen
+        if(x <= theStinkyCheese.SPRITE_SIZE.getX() / 2 + theStinkyCheese.SPRITE_SIZE.getX())
+            x = theStinkyCheese.SPRITE_SIZE.getX() / 2 + theStinkyCheese.SPRITE_SIZE.getX();  // Restricts the player from moving off the left of screen
 
         if(x >= theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX())
             x = theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX();  // Restricts the player from moving off the right of screen

@@ -52,6 +52,7 @@ public class BrickBBBreaker {
     private PauseUI pauseUI;
     private LoadLevelUI loadLevelUI;
     private Player player;
+    private Ball ball;
 
     // Levels
     private Map<Integer, Level> levels = null;
@@ -81,6 +82,25 @@ public class BrickBBBreaker {
             }
         }
         return currentGame;
+    }
+
+    private void initComponents() {
+        // Attempt to get resources for the game
+        try {
+            spriteSheet = new SpriteSheet("spriteSheet.png");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        gameController = new GameController();
+        inputController = new InputController();
+        mainMenuUI = new MainMenuUI();
+        gameUI = new GameUI();
+        pauseUI = new PauseUI();
+        loadLevelUI = new LoadLevelUI();
+        player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
+        ball = new Ball();
+        AddDebugLog("Initialized Components", true);
     }
 
 
@@ -120,6 +140,10 @@ public class BrickBBBreaker {
         return player;
     }
 
+    public Ball getBall() {
+        return ball;
+    }
+
     public SpriteSheet getSpriteSheet() {
         return spriteSheet;
     }
@@ -140,25 +164,6 @@ public class BrickBBBreaker {
         System.out.println("BrickBBBreaker Singleton says Hello World!");
 
         AddDebugLog("Said Hello World", true);
-    }
-
-    private void initComponents() {
-        // Attempt to get resources for the game
-        try {
-            spriteSheet = new SpriteSheet("spriteSheet.png");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        gameController = new GameController();
-        inputController = new InputController();
-        mainMenuUI = new MainMenuUI();
-        gameUI = new GameUI();
-        pauseUI = new PauseUI();
-        loadLevelUI = new LoadLevelUI();
-        player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
-
-        AddDebugLog("Initialized Components", true);
     }
 
     private void initLevels() {
