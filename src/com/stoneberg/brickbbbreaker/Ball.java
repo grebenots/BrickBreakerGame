@@ -53,13 +53,7 @@ public class Ball extends Entity {
                 velocity.setX(velocity.getX() * -1);
             }
         }
-//
-//        if(x <= theStinkyCheese.SPRITE_SIZE.getX() / 2)
-//            x = theStinkyCheese.SPRITE_SIZE.getX() / 2;  // Restricts the player from moving off the left of screen
-//
-//        if(x >= theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX())
-//            x = theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX();  // Restricts the player from moving off the right of screen
-//
+
         position.set(x,y);
     }
 
