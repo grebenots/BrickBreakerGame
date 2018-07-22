@@ -25,6 +25,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 public class ApplicationEntry extends Canvas implements Runnable {
 
@@ -40,18 +41,15 @@ public class ApplicationEntry extends Canvas implements Runnable {
         // Application instance
         ApplicationEntry application = new ApplicationEntry();
 
-        // Initialize the singleton game instance
-        BrickBBBreaker theStinkyCheese = BrickBBBreaker.getCurrentGame();
-
         // Initialize input controller
-        application.addKeyListener(theStinkyCheese.getInputController());
+        application.addKeyListener(application.theStinkyCheese.getInputController());
 
         // Configure the game game window
-        application.setPreferredSize(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE)));
-        application.setMaximumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
-        application.setMinimumSize(new Dimension(new Dimension((int)(theStinkyCheese.WINDOW_SIZE.getX() * theStinkyCheese.SCALE), (int)(theStinkyCheese.WINDOW_SIZE.getY() * theStinkyCheese.SCALE))));
+        application.setPreferredSize(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE)));
+        application.setMaximumSize(new Dimension(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE))));
+        application.setMinimumSize(new Dimension(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE))));
 
-        JFrame frame = new JFrame(theStinkyCheese.TITLE);
+        JFrame frame = new JFrame(application.theStinkyCheese.TITLE);
         frame.add(application);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,15 +61,52 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     private ApplicationEntry() {
-        // Initialize the game instance
+        // Initialize the singleton game instance
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
     }
 
     private void tick() {
-        theStinkyCheese.getGameController().tick();
+
+        switch(theStinkyCheese.getCurrentState()) {  // Begin State Machine
+            case MENU:
+                tickMenuState();
+                break;
+            case GAME:
+                tickGameState();
+                break;
+            case PAUSED:
+                tickPauseState();
+                break;
+        }
     }
 
+    private void tickMenuState() {
+
+    }
+
+    private void tickGameState() {
+        // Tick player
+        theStinkyCheese.getPlayer().tick();
+
+        // Tick bricks
+
+
+        // Tick ball
+
+
+        // Tick More Stuff...
+
+
+
+    }
+
+    private void tickPauseState() {
+
+    }
+
+
     private void render() {
+
         BufferStrategy bs = this.getBufferStrategy();
 
         if (bs == null) {
@@ -79,81 +114,55 @@ public class ApplicationEntry extends Canvas implements Runnable {
             return;
         }
 
-        //  All rendering goes here
         theStinkyCheese.setGraphics(bs.getDrawGraphics());
-        theStinkyCheese.getGameController().render();
+        BufferedImage blackBackground = new BufferedImage(theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+        theStinkyCheese.getGraphics().drawImage(blackBackground, 0, 0, theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(),null);
 
-
-//
-//
-//         Temp rendering stuff
-//        brick1.render(graphics);
-//        brick2.render(graphics);
-//        brick3.render(graphics);
-//        brick4.render(graphics);
-//        brick5.render(graphics);
-//        brick6.render(graphics);
-
-
+        //  All additional rendering goes here
+        switch(theStinkyCheese.getCurrentState()) {  // Begin State Machine
+            case MENU:
+                renderMenuState();
+                break;
+            case GAME:
+                renderGameState();
+                break;
+            case PAUSED:
+                renderPauseState();
+                break;
+        }
         // End of rendering section
 
-          theStinkyCheese.getGraphics().dispose();
-          bs.show();
+        theStinkyCheese.getGraphics().dispose();
+        bs.show();
+    }
+
+    // Rendering
+    private void renderMenuState() {
+        theStinkyCheese.getMainMenuUI().render();
+    }
+
+    private void renderGameState() {
+        // Render UI
+        theStinkyCheese.getGameUI().render();
+
+        // Render player
+        theStinkyCheese.getPlayer().render();
+
+        // Render ball
 
 
-//        graphics.drawImage(textures.blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
-//
-//        // Opacity test stuff
-//        float alpha = 0.1f;
-//        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-//        Graphics2D gg = (Graphics2D)graphics;
-//        gg.setComposite(ac);
-//        gg.drawImage(textures.background, 0,0, getWidth(), getHeight(), null);
-//        ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1);
-//        gg.setComposite(ac);
-//        // End opacity test
-//
-//        BufferedImage blackBackground = new BufferedImage(BrickBreakerGame.WINDOW_SIZE.getX().intValue(), BrickBreakerGame.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
-//        graphics.drawImage(blackBackground, 0, 0, getWidth(), getHeight(), this);  // Black background
-//        player.render(graphics);
-//        gameController.render(graphics);
-//
-//
-//         Temp rendering stuff
-//        brick1.render(graphics);
-//        brick2.render(graphics);
-//        brick3.render(graphics);
-//        brick4.render(graphics);
-//        brick5.render(graphics);
-//        brick6.render(graphics);
-//
-//        /  End of rendering section  ///
-//
-//        graphics.dispose();
-//        bs.show();
+        // Render More Stuff...
+
+    }
+
+    private void renderPauseState() {
+
     }
 
 
 
     private void init() {  // NOT DONE
         requestFocus();
-        // Setup the input system
-        //addKeyListener(new KeyInput(this));
-        //inputController = new InputController(this);
-
-        // Setup logic and components
-        //gameController = new GameController(this);
-        //player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY(), entitySheet);
-
-        // Brick Testing
-//        brick1 = new Brick(1,1, entitySheet);
-//        brick2 = new Brick(2,1, entitySheet);
-//        brick3 = new Brick(3,1, entitySheet);
-//        brick4 = new Brick(2,2, entitySheet);
-//        brick5 = new Brick(3,2, entitySheet);
-//        brick6 = new Brick(11,2, entitySheet);
-
-        //gameController = new Controller(this);
     }
 
     private synchronized void start() {

@@ -105,6 +105,17 @@ public abstract class UI {
         drawCenteredString("SCORE:  " + Integer.toString(theStinkyCheese.getPlayer().getCurrentScore()), 24, scoreFont, Color.RED);
     }
 
+    protected void drawCurrentLevel() {
+        Level currentLevel = theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel());
+        Map<Generic2D<Integer>, Brick> currentBricks = currentLevel.getBricks();
+
+        for(Generic2D<Integer> key : currentBricks.keySet()) {
+            Brick brick = currentBricks.get(key);
+            Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
+            theStinkyCheese.getGameUI().drawBrickByCoordinate(brick.getBrickName(), currentCoordinate.getX(), currentCoordinate.getY());
+        }
+    }
+
     protected void setOpacity(float amount) {
         AlphaComposite alphaC = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, amount);
         Graphics2D g2 = (Graphics2D)theStinkyCheese.getGraphics();
