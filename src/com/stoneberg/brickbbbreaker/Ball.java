@@ -5,13 +5,6 @@ import java.util.Map;
 
 public class Ball extends Entity {
 
-    private enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
-
     private Direction verticalDirection;
     private Direction horizontalDirection;
 

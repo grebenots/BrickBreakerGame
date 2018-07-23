@@ -56,6 +56,15 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
+    public void moveLeft(int key) {
+
+    }
+
+    public void moveRight(int key) {
+
+    }
+
+
     // Not sure if I will implement this here or not
     //public void fireBullet() {
         // NEED TO MOVE CODE FOR FIRING FROM THE GAME CONTROLLER TO HERE

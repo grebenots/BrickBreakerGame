@@ -38,7 +38,7 @@ public class InputController extends KeyAdapter {
                 break;
         }
     }
-
+    
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
 

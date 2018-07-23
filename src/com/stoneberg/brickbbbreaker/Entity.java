@@ -13,6 +13,13 @@ public abstract class Entity {
     protected Generic2D<Double> position;
     protected Generic2D<Double> velocity;
 
+    protected enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
     abstract void tick();
     abstract void render();
     abstract Rectangle bounds();
