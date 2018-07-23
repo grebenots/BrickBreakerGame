@@ -94,7 +94,7 @@ public class Ball extends Entity {
         for(Generic2D<Integer> key : currentBricks.keySet()) {
             Brick brick = currentBricks.get(key);
             Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
-            
+
             if(bounds().intersects(brick.bounds())) {
                 velocity.setY(velocity.getY() * -1);
                 verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
@@ -111,10 +111,14 @@ public class Ball extends Entity {
         double y = position.getY();
 
         theStinkyCheese.getGraphics().drawImage(sprites.get("ballSmall"), (int)x, (int)y, null);
+
+        Rectangle rect = bounds();
+        theStinkyCheese.getGraphics().setColor(Color.RED);
+        theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     public Rectangle bounds() {
-        return new Rectangle(position.getX().intValue(), position.getY().intValue(), 8, 8);
+        return new Rectangle(position.getX().intValue() + 12, position.getY().intValue() + 12, 8, 8);
     }
 
     public Generic2D<Double> getVelocity() {

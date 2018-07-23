@@ -112,6 +112,10 @@ public class Brick extends Entity {
     public void render() {
         updateTheCheese();
         theStinkyCheese.getGameUI().drawBrickByCoordinate("brickBlue", wallCoordinate.getX(), wallCoordinate.getY());
+
+        Rectangle rect = bounds();
+        theStinkyCheese.getGraphics().setColor(Color.RED);
+        theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     public Rectangle bounds() {

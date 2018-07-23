@@ -50,6 +50,10 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleLeft"), (int)x - 32, (int)y, null);
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleCenter"),(int)x,(int)y,null);
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
+
+        Rectangle rect = bounds();
+        theStinkyCheese.getGraphics().setColor(Color.RED);
+        theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     // Not sure if I will implement this here or not
@@ -60,7 +64,7 @@ public class Player extends Entity {
 
 
     public Rectangle bounds() {
-        return new Rectangle(position.getX().intValue() - 16, position.getY().intValue(), 64, 16);
+        return new Rectangle(position.getX().intValue() - 16, position.getY().intValue() + 8, 64, 16);
     }
 
     public boolean getIsShooting() {
