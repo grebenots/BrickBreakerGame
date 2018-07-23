@@ -112,9 +112,7 @@ public abstract class UI {
         Map<Generic2D<Integer>, Brick> currentBricks = currentLevel.getBricks();
 
         for(Generic2D<Integer> key : currentBricks.keySet()) {
-            Brick brick = currentBricks.get(key);
-            Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
-            theStinkyCheese.getGameUI().drawBrickByCoordinate(brick.getBrickName(), currentCoordinate.getX(), currentCoordinate.getY());
+            currentBricks.get(key).render();
         }
     }
 
