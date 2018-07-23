@@ -38,20 +38,20 @@ public class InputController extends KeyAdapter {
                 break;
         }
     }
-    
+
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
-            theStinkyCheese.getPlayer().getVelocity().setX(5.0);
+            theStinkyCheese.getPlayer().moveRight();
         } else if(key == KeyEvent.VK_LEFT) {
-            theStinkyCheese.getPlayer().getVelocity().setX(-5.0);
+            theStinkyCheese.getPlayer().moveLeft();
         } else if(key == KeyEvent.VK_DOWN) {
 
         } else if(key == KeyEvent.VK_UP) {
 
         } else if(key == KeyEvent.VK_SPACE && !theStinkyCheese.getPlayer().getIsShooting()) {
-            theStinkyCheese.getPlayer().setIsShooting(true);
+            //theStinkyCheese.getPlayer().setIsShooting(true);
             //theStinkyCheese.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
         }
     }
@@ -60,9 +60,9 @@ public class InputController extends KeyAdapter {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {  // Change to getPlayer().moveRight() etc...
-            theStinkyCheese.getPlayer().getVelocity().setX(0.0);
+            theStinkyCheese.getPlayer().stopMoving();
         } else if(key == KeyEvent.VK_LEFT) {
-            theStinkyCheese.getPlayer().getVelocity().setX(0.0);
+            theStinkyCheese.getPlayer().stopMoving();
         } else if(key == KeyEvent.VK_DOWN) {
 
         } else if(key == KeyEvent.VK_UP) {

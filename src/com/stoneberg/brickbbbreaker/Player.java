@@ -8,6 +8,7 @@ public class Player extends Entity {
     private int currentLevel;
     private int currentScore;
     private int numLives;
+    private Direction horizontalDirection;
 
     public Player(double x, double y) {
         super();
@@ -17,6 +18,7 @@ public class Player extends Entity {
         currentScore = 0;
         currentLevel = 0;
         numLives = 3;
+        horizontalDirection = Direction.NONE;
 
         sprites.put("paddleLeft", theStinkyCheese.getSpriteSheet().getSprite(1,1,32,32));
         sprites.put("paddleCenter", theStinkyCheese.getSpriteSheet().getSprite(2,1,32,32));
@@ -56,12 +58,19 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
-    public void moveLeft(int key) {
-
+    public void moveLeft() {
+        horizontalDirection = Direction.LEFT;
+        velocity.setX(-5.0);
     }
 
-    public void moveRight(int key) {
+    public void moveRight() {
+        horizontalDirection = Direction.RIGHT;
+        velocity.setX(5.0);
+    }
 
+    public void stopMoving() {
+        horizontalDirection = Direction.NONE;
+        velocity.setX(0.0);
     }
 
 
