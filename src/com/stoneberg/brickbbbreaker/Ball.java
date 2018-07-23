@@ -1,5 +1,8 @@
 package com.stoneberg.brickbbbreaker;
 
+import java.awt.*;
+import java.util.Map;
+
 public class Ball extends Entity {
 
     private enum Direction {
@@ -71,6 +74,34 @@ public class Ball extends Entity {
         }
 
         position.set(x,y);
+
+        checkCollisions();
+    }
+
+    private void checkCollisions() {
+        // Check for player
+        if(bounds().intersects(theStinkyCheese.getPlayer().bounds())) {
+            velocity.setY(velocity.getY() * -1);
+            position.setY(theStinkyCheese.getPlayer().getPosition().getY() - 8);
+
+            verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
+        }
+
+        // Check for bricks
+        Level currentLevel = theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel());
+        Map<Generic2D<Integer>, Brick> currentBricks = currentLevel.getBricks();
+
+        for(Generic2D<Integer> key : currentBricks.keySet()) {
+            Brick brick = currentBricks.get(key);
+            Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
+            
+            if(bounds().intersects(brick.bounds())) {
+                velocity.setY(velocity.getY() * -1);
+                verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
+                theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel()).removeBrick(currentCoordinate);
+                break;
+            }
+        }
     }
 
     public void render() {
@@ -80,6 +111,10 @@ public class Ball extends Entity {
         double y = position.getY();
 
         theStinkyCheese.getGraphics().drawImage(sprites.get("ballSmall"), (int)x, (int)y, null);
+    }
+
+    public Rectangle bounds() {
+        return new Rectangle(position.getX().intValue(), position.getY().intValue(), 8, 8);
     }
 
     public Generic2D<Double> getVelocity() {

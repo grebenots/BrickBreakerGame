@@ -1,5 +1,7 @@
 package com.stoneberg.brickbbbreaker;
 
+import java.awt.*;
+
 public class Player extends Entity {
 
     private boolean isShooting;
@@ -55,6 +57,11 @@ public class Player extends Entity {
         // NEED TO MOVE CODE FOR FIRING FROM THE GAME CONTROLLER TO HERE
         //game.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
     //}
+
+
+    public Rectangle bounds() {
+        return new Rectangle(position.getX().intValue() - 16, position.getY().intValue(), 64, 16);
+    }
 
     public boolean getIsShooting() {
         return isShooting;

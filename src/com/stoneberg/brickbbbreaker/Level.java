@@ -17,6 +17,10 @@ public class Level {
         bricks.put(brick.getWallCoordinate(), brick);
     }
 
+    protected void removeBrick(Generic2D<Integer> brickCoordinate) {
+        bricks.remove(brickCoordinate);
+    }
+
     public Map<Generic2D<Integer>, Brick> getBricks() {
         return bricks;
     }

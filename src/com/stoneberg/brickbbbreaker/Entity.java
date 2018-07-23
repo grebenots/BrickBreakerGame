@@ -1,8 +1,10 @@
 package com.stoneberg.brickbbbreaker;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Rectangle;
 
 public abstract class Entity {
 
@@ -13,6 +15,7 @@ public abstract class Entity {
 
     abstract void tick();
     abstract void render();
+    abstract Rectangle bounds();
 
     public Entity() {
         updateTheCheese();

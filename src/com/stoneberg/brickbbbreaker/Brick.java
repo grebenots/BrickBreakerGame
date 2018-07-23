@@ -1,5 +1,6 @@
 package com.stoneberg.brickbbbreaker;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Brick extends Entity {
@@ -25,6 +26,9 @@ public class Brick extends Entity {
         super();
         wallCoordinate = new Generic2D<>(x,y);
         setBrickType(brickType);
+
+        position.setX(wallCoordinate.getX().doubleValue() * theStinkyCheese.SPRITE_SIZE.getX());
+        position.setY(wallCoordinate.getY().doubleValue() * theStinkyCheese.SPRITE_SIZE.getY() / 2);
     }
 
     private void setBrickType(BrickType brickType) {
@@ -108,6 +112,10 @@ public class Brick extends Entity {
     public void render() {
         updateTheCheese();
         theStinkyCheese.getGameUI().drawBrickByCoordinate("brickBlue", wallCoordinate.getX(), wallCoordinate.getY());
+    }
+
+    public Rectangle bounds() {
+        return new Rectangle(position.getX().intValue(), position.getY().intValue(), 32, 16);
     }
 
     public Generic2D<Integer> getWallCoordinate() {
