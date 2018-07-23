@@ -7,6 +7,7 @@ public class Ball extends Entity {
 
     private Direction verticalDirection;
     private Direction horizontalDirection;
+    private Generic2D<Double> defaultVelocity;
 
     public Ball() {
         super();
@@ -14,6 +15,7 @@ public class Ball extends Entity {
         velocity.set(0.0, 0.0);
         verticalDirection = Direction.UP;
         horizontalDirection = Direction.RIGHT;
+        defaultVelocity = new Generic2D<Double>(4.0, -4.0);
 
         sprites.put("ballSmall", theStinkyCheese.getSpriteSheet().getSprite(6,1,32,32));
     }
@@ -21,7 +23,7 @@ public class Ball extends Entity {
     public void beginLevel() {
         Generic2D<Double> playerPosition = theStinkyCheese.getPlayer().getPosition();
         position.set(playerPosition.getX(), playerPosition.getY() - 16);
-        velocity = new Generic2D<Double>(4.0, -4.0);
+        velocity = new Generic2D<Double>(defaultVelocity.getX(), defaultVelocity.getY());
     }
 
 

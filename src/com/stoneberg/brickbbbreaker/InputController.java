@@ -6,9 +6,13 @@ import java.awt.event.KeyEvent;
 public class InputController extends KeyAdapter {
 
     protected BrickBBBreaker theStinkyCheese = null;
+    private boolean leftPressed;
+    private boolean rightPressed;
 
     public InputController() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
+        leftPressed = false;
+        rightPressed = false;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -43,8 +47,10 @@ public class InputController extends KeyAdapter {
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT) {
+            rightPressed = true;
             theStinkyCheese.getPlayer().moveRight();
         } else if(key == KeyEvent.VK_LEFT) {
+            leftPressed = true;
             theStinkyCheese.getPlayer().moveLeft();
         } else if(key == KeyEvent.VK_DOWN) {
 
@@ -56,13 +62,25 @@ public class InputController extends KeyAdapter {
         }
     }
 
-    private void gameReleased(KeyEvent e) {  // NOT DONE
+    private void gameReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if(key == KeyEvent.VK_RIGHT) {  // Change to getPlayer().moveRight() etc...
-            theStinkyCheese.getPlayer().stopMoving();
+        if(key == KeyEvent.VK_RIGHT) {
+            rightPressed = false;
+
+            if(leftPressed) {
+                theStinkyCheese.getPlayer().moveLeft();
+            } else {
+                theStinkyCheese.getPlayer().stopMoving();
+            }
         } else if(key == KeyEvent.VK_LEFT) {
-            theStinkyCheese.getPlayer().stopMoving();
+            leftPressed = false;
+
+            if(rightPressed) {
+                theStinkyCheese.getPlayer().moveRight();
+            } else {
+                theStinkyCheese.getPlayer().stopMoving();
+            }
         } else if(key == KeyEvent.VK_DOWN) {
 
         } else if(key == KeyEvent.VK_UP) {
