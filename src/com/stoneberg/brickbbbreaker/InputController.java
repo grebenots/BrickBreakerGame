@@ -43,6 +43,12 @@ public class InputController extends KeyAdapter {
         }
     }
 
+    // Method borrowed from http://xboxforums.create.msdn.com/forums/t/15365.aspx
+    private float easeNumber(float min, float max, float number) {
+        float target = (number - min) / (max - min);
+        return target * target * (3.0f - 2.0f * target);
+    }
+
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
 
