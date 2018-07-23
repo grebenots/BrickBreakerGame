@@ -19,7 +19,8 @@ public class Brick extends Entity {
         PURPLE,
         POISON,
         BOMB,
-        RANDOM
+        RANDOM,
+        DEBUG
     }
 
     public Brick(int x, int y, BrickType brickType) {
@@ -62,6 +63,9 @@ public class Brick extends Entity {
                 break;
             case RANDOM:
                 setRandomType();
+                break;
+            case DEBUG:
+                brickName = "debug";
                 break;
         }
     }
@@ -110,12 +114,11 @@ public class Brick extends Entity {
     }
 
     public void render() {
-        updateTheCheese();
-        theStinkyCheese.getGameUI().drawBrickByCoordinate("brickBlue", wallCoordinate.getX(), wallCoordinate.getY());
+
     }
 
     public Rectangle bounds() {
-        return new Rectangle(position.getX().intValue(), position.getY().intValue(), 32, 16);
+        return new Rectangle(position.getX().intValue(), position.getY().intValue() + 8, 32, 16);
     }
 
     public Generic2D<Integer> getWallCoordinate() {
