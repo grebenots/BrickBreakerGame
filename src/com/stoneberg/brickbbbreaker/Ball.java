@@ -90,9 +90,9 @@ public class Ball extends Entity {
             double newY = y * -1;
 
             if(getHorizontalDirection() == theStinkyCheese.getPlayer().getHorizontalDirection()) {
-                newX *= ((ease / 1.0) * 2.5);
+                newX *= ease > 0.5 ? ((ease / 1.0) * 2.5) : 1;
             } else {
-                newX *= ((ease / 1.0) * .4);
+                newX *= ease > 0.5 ? ((ease / 1.0) * .4) : 1;
             }
 
             if(Math.abs(newX) > maxVelocity.getX()) {
