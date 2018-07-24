@@ -11,6 +11,7 @@ public class InputController extends KeyAdapter {
 
     private double leftDuration;
     private double rightDuration;
+    private double easeDuration;
 
     private double timerCurrent;
     private double timerDuration;
@@ -26,6 +27,7 @@ public class InputController extends KeyAdapter {
 
         leftDuration = 0.0;
         rightDuration = 0.0;
+        easeDuration = 0.0;
 
         timerCurrent = 0.0;
         timerDuration = 1.0;
@@ -66,7 +68,6 @@ public class InputController extends KeyAdapter {
     }
 
     public double getCurrentEasement() {
-        if(System.nanoTime() - rightDuration )
 
         System.out.println();
         return timerCurrent < timerEnd ? (double)parametricEase((float)(timerEnd - timerCurrent)) : 1.0;
@@ -74,17 +75,14 @@ public class InputController extends KeyAdapter {
 
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
-        currentEasement = 0;
         timerCurrent = System.nanoTime();
         timerEnd = timerCurrent + timerDuration * 1000000000;
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = true;
-            rightDuration = System.nanoTime();
             theStinkyCheese.getPlayer().moveRight();
         } else if(key == KeyEvent.VK_LEFT) {
             leftPressed = true;
-            leftDuration = System.nanoTime();
             theStinkyCheese.getPlayer().moveLeft();
         } else if(key == KeyEvent.VK_DOWN) {
 
@@ -98,26 +96,19 @@ public class InputController extends KeyAdapter {
 
     private void gameReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        currentEasement = 0;
         timerCurrent = System.nanoTime();
         timerEnd = timerCurrent + timerDuration * 1000000000;
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = false;
-            rightDuration = 0.0;
-
             if(leftPressed) {
-                leftDuration = 0.0;
                 theStinkyCheese.getPlayer().moveLeft();
             } else {
                 theStinkyCheese.getPlayer().stopMoving();
             }
         } else if(key == KeyEvent.VK_LEFT) {
             leftPressed = false;
-            leftDuration = 0.0;
-
             if(rightPressed) {
-                rightDuration = 0.0;
                 theStinkyCheese.getPlayer().moveRight();
             } else {
                 theStinkyCheese.getPlayer().stopMoving();
