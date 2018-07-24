@@ -9,7 +9,6 @@ public class Player extends Entity {
     private int currentScore;
     private int numLives;
     private Direction horizontalDirection;
-    private float moveEase;
 
     public Player(double x, double y) {
         super();
@@ -20,7 +19,6 @@ public class Player extends Entity {
         currentLevel = 0;
         numLives = 3;
         horizontalDirection = Direction.NONE;
-        moveEase = 0.49f;
 
         sprites.put("paddleLeft", theStinkyCheese.getSpriteSheet().getSprite(1,1,32,32));
         sprites.put("paddleCenter", theStinkyCheese.getSpriteSheet().getSprite(2,1,32,32));
@@ -43,9 +41,6 @@ public class Player extends Entity {
             x = theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX() * 2.5;  // Restricts the player from moving off the right of screen
 
         position.set(x,y);
-
-        System.out.println("moveEase == " + moveEase);
-        moveEase = easeInOutQuint(moveEase);
     }
 
     public void render() {
@@ -118,7 +113,4 @@ public class Player extends Entity {
         return position;
     }
 
-    private float easeInOutQuint(float t) {
-        return t<.5 ? 16*easeInOutQuint(t)*easeInOutQuint(t)*easeInOutQuint(t)*easeInOutQuint(t)*easeInOutQuint(t) : 1+16*(--t)*easeInOutQuint(t)*easeInOutQuint(t)*easeInOutQuint(t)*easeInOutQuint(t);
-    }
 }

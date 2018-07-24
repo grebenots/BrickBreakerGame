@@ -9,10 +9,27 @@ public class InputController extends KeyAdapter {
     private boolean leftPressed;
     private boolean rightPressed;
 
+    private double leftDuration;
+    private double rightDuration;
+
+    private double timerCurrent;
+    private double timerDuration;
+    private double timerEnd;
+
+    private float currentEasement;
+
     public InputController() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
         leftPressed = false;
         rightPressed = false;
+        currentEasement = 0.0f;
+
+        leftDuration = 0.0;
+        rightDuration = 0.0;
+
+        timerCurrent = 0.0;
+        timerDuration = 1.0;
+        timerEnd = 0.0;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -43,20 +60,31 @@ public class InputController extends KeyAdapter {
         }
     }
 
-    // Method borrowed from http://xboxforums.create.msdn.com/forums/t/15365.aspx
-    private float easeNumber(float min, float max, float number) {
-        float target = (number - min) / (max - min);
-        return target * target * (3.0f - 2.0f * target);
+    private float parametricEase(float t) {  // Borrowed from https://stackoverflow.com/questions/13462001/ease-in-and-ease-out-animation-formula
+        float sqt = (float)Math.pow(t,2);
+        return sqt / (2.0f * (sqt - t) + 1.0f);
+    }
+
+    public double getCurrentEasement() {
+        if(System.nanoTime() - rightDuration )
+
+        System.out.println();
+        return timerCurrent < timerEnd ? (double)parametricEase((float)(timerEnd - timerCurrent)) : 1.0;
     }
 
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
+        currentEasement = 0;
+        timerCurrent = System.nanoTime();
+        timerEnd = timerCurrent + timerDuration * 1000000000;
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = true;
+            rightDuration = System.nanoTime();
             theStinkyCheese.getPlayer().moveRight();
         } else if(key == KeyEvent.VK_LEFT) {
             leftPressed = true;
+            leftDuration = System.nanoTime();
             theStinkyCheese.getPlayer().moveLeft();
         } else if(key == KeyEvent.VK_DOWN) {
 
@@ -70,19 +98,26 @@ public class InputController extends KeyAdapter {
 
     private void gameReleased(KeyEvent e) {
         int key = e.getKeyCode();
+        currentEasement = 0;
+        timerCurrent = System.nanoTime();
+        timerEnd = timerCurrent + timerDuration * 1000000000;
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = false;
+            rightDuration = 0.0;
 
             if(leftPressed) {
+                leftDuration = 0.0;
                 theStinkyCheese.getPlayer().moveLeft();
             } else {
                 theStinkyCheese.getPlayer().stopMoving();
             }
         } else if(key == KeyEvent.VK_LEFT) {
             leftPressed = false;
+            leftDuration = 0.0;
 
             if(rightPressed) {
+                rightDuration = 0.0;
                 theStinkyCheese.getPlayer().moveRight();
             } else {
                 theStinkyCheese.getPlayer().stopMoving();

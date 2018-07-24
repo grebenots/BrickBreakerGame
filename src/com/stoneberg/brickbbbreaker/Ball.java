@@ -80,6 +80,8 @@ public class Ball extends Entity {
             position.setY(theStinkyCheese.getPlayer().getPosition().getY() - 8);
 
             verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
+
+            System.out.println(theStinkyCheese.getInputController().getCurrentEasement());
         }
 
         // Check for bricks
