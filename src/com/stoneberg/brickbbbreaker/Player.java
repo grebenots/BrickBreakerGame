@@ -105,6 +105,10 @@ public class Player extends Entity {
         return numLives;
     }
 
+    public Direction getHorizontalDirection() {
+        return horizontalDirection;
+    }
+
     public Generic2D<Double> getVelocity() {
         return velocity;
     }

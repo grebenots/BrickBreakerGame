@@ -9,29 +9,19 @@ public class InputController extends KeyAdapter {
     private boolean leftPressed;
     private boolean rightPressed;
 
-    private double leftDuration;
-    private double rightDuration;
-    private double easeDuration;
+    private double startDuration;
+    private double targetDuration;
+    private double endDuration;
 
-    private double timerCurrent;
-    private double timerDuration;
-    private double timerEnd;
-
-    private float currentEasement;
 
     public InputController() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
         leftPressed = false;
         rightPressed = false;
-        currentEasement = 0.0f;
 
-        leftDuration = 0.0;
-        rightDuration = 0.0;
-        easeDuration = 0.0;
-
-        timerCurrent = 0.0;
-        timerDuration = 1.0;
-        timerEnd = 0.0;
+        startDuration = 0.0;
+        targetDuration = .25;
+        endDuration = 0.0;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -62,21 +52,24 @@ public class InputController extends KeyAdapter {
         }
     }
 
+    public float getEasement() {
+        double current = System.nanoTime();
+        return current > endDuration ? parametricEase(1.0f) : parametricEase((float)((current - startDuration) / (endDuration - startDuration)));
+
+    }
+
     private float parametricEase(float t) {  // Borrowed from https://stackoverflow.com/questions/13462001/ease-in-and-ease-out-animation-formula
         float sqt = (float)Math.pow(t,2);
         return sqt / (2.0f * (sqt - t) + 1.0f);
     }
 
-    public double getCurrentEasement() {
-
-        System.out.println();
-        return timerCurrent < timerEnd ? (double)parametricEase((float)(timerEnd - timerCurrent)) : 1.0;
-    }
-
     private void gamePressed(KeyEvent e) {
         int key = e.getKeyCode();
-        timerCurrent = System.nanoTime();
-        timerEnd = timerCurrent + timerDuration * 1000000000;
+
+        if(startDuration == 0.0) {
+            startDuration = System.nanoTime();
+            endDuration = startDuration + targetDuration * 1000000000;
+        }
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = true;
@@ -96,8 +89,9 @@ public class InputController extends KeyAdapter {
 
     private void gameReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        timerCurrent = System.nanoTime();
-        timerEnd = timerCurrent + timerDuration * 1000000000;
+
+        startDuration = 0.0;
+        endDuration = 0.0;
 
         if(key == KeyEvent.VK_RIGHT) {
             rightPressed = false;

@@ -1,5 +1,7 @@
 package com.stoneberg.brickbbbreaker;
 
+import com.sun.tools.javah.Gen;
+
 import java.awt.*;
 import java.util.Map;
 
@@ -8,11 +10,15 @@ public class Ball extends Entity {
     private Direction verticalDirection;
     private Direction horizontalDirection;
     private Generic2D<Double> defaultVelocity;
+    private Generic2D<Double> minVelocity;
+    private Generic2D<Double> maxVelocity;
 
     public Ball() {
         super();
         position.set(0.0, 0.0);
         velocity.set(0.0, 0.0);
+        minVelocity = new Generic2D<Double>(2.0, 4.0);
+        maxVelocity = new Generic2D<Double>(8.0, 8.0);
         verticalDirection = Direction.UP;
         horizontalDirection = Direction.RIGHT;
         defaultVelocity = new Generic2D<Double>(4.0, -4.0);
@@ -76,12 +82,37 @@ public class Ball extends Entity {
     private void checkCollisions() {
         // Check for player
         if(bounds().intersects(theStinkyCheese.getPlayer().bounds())) {
-            velocity.setY(velocity.getY() * -1);
-            position.setY(theStinkyCheese.getPlayer().getPosition().getY() - 8);
+            double x = velocity.getX();
+            double y = velocity.getY();
+            double ease = theStinkyCheese.getInputController().getEasement();
 
+            double newX = x;
+            double newY = y * -1;
+
+            if(getHorizontalDirection() == theStinkyCheese.getPlayer().getHorizontalDirection()) {
+                newX *= ((ease / 1.0) * 2.5);
+            } else {
+                newX *= ((ease / 1.0) * .4);
+            }
+
+            if(Math.abs(newX) > maxVelocity.getX()) {
+                newX = Math.abs(newX) == newX ? maxVelocity.getX() : maxVelocity.getX() * -1;
+            }
+            if(Math.abs(newY) > maxVelocity.getY()) {
+                newY = Math.abs(newY) == newY ? maxVelocity.getY() : maxVelocity.getY() * -1;
+            }
+
+            if(Math.abs(newX) < minVelocity.getX()) {
+                newX = Math.abs(newX) == newX ? minVelocity.getX() : minVelocity.getX() * -1;
+            }
+            if(Math.abs(newY) < minVelocity.getY()) {
+                newY = Math.abs(newY) == newY ? minVelocity.getY() : minVelocity.getY() * -1;
+            }
+
+            velocity.set(newX, newY);
+            position.setY(theStinkyCheese.getPlayer().getPosition().getY() - 8);
             verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
 
-            System.out.println(theStinkyCheese.getInputController().getCurrentEasement());
         }
 
         // Check for bricks
@@ -116,6 +147,10 @@ public class Ball extends Entity {
 
     public Rectangle bounds() {
         return new Rectangle(position.getX().intValue() + 12, position.getY().intValue() + 12, 8, 8);
+    }
+
+    public Direction getHorizontalDirection() {
+        return horizontalDirection;
     }
 
     public Generic2D<Double> getVelocity() {
