@@ -62,7 +62,7 @@ public class Ball extends Entity {
 
         x += velocity.getX();
         y += velocity.getY();
-        
+
         if(horizontalDirection == Direction.LEFT) {
             if (x <= theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4) {
                 x = theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4;
