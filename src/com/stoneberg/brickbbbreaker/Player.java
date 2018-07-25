@@ -73,6 +73,10 @@ public class Player extends Entity {
         velocity.setX(0.0);
     }
 
+    public void die() {
+        numLives--;
+    }
+
 
     // Not sure if I will implement this here or not
     //public void fireBullet() {
@@ -93,6 +97,9 @@ public class Player extends Entity {
         this.isShooting = isShooting;
     }
 
+    public void setHorizontalDirection(Direction horizontalDirection) {
+        this.horizontalDirection = horizontalDirection;
+    }
     public int getCurrentScore() {
         return currentScore;
     }

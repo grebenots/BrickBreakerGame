@@ -19,8 +19,8 @@ public class Ball extends Entity {
 
     private Clip bounceClip;
     private File bounceFile;
-    private Clip breakClip;
-    private File breakFile;
+    private Clip deathClip;
+    private File deathFile;
 
     public Ball() {
         super();
@@ -36,12 +36,12 @@ public class Ball extends Entity {
 
         try {
             bounceClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            breakClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
             bounceFile = new File("src/resources/bounce.wav");
-            breakFile = new File("src/resources/break.wav");
+            deathClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            deathFile = new File("src/resources/death.wav");
 
             bounceClip.open(AudioSystem.getAudioInputStream(bounceFile));
-            breakClip.open(AudioSystem.getAudioInputStream(breakFile));
+            deathClip.open(AudioSystem.getAudioInputStream(deathFile));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class Ball extends Entity {
 
         x += velocity.getX();
         y += velocity.getY();
-
+        
         if(horizontalDirection == Direction.LEFT) {
             if (x <= theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4) {
                 x = theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4;
@@ -101,13 +101,12 @@ public class Ball extends Entity {
 
         if(verticalDirection == Direction.DOWN) {
             if (y >= theStinkyCheese.WINDOW_SIZE.getY() + theStinkyCheese.SPRITE_SIZE.getY()) {
-                y = theStinkyCheese.WINDOW_SIZE.getY()  + theStinkyCheese.SPRITE_SIZE.getY();
-                verticalDirection = Direction.UP;
-                velocity.setY(velocity.getY() * -1);
 
-                bounceClip.setFramePosition(0);
-                bounceClip.loop(0);
-                bounceClip.start();
+                deathClip.setFramePosition(0);
+                deathClip.loop(0);
+                deathClip.start();
+                theStinkyCheese.getPlayer().die();
+                theStinkyCheese.enterState(BrickBBBreaker.GameState.LOADLEVEL);
             }
         }
 
@@ -167,11 +166,7 @@ public class Ball extends Entity {
             if(bounds().intersects(brick.bounds())) {
                 velocity.setY(velocity.getY() * -1);
                 verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
-                theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel()).removeBrick(currentCoordinate);
-
-                breakClip.setFramePosition(0);
-                breakClip.loop(0);
-                breakClip.start();
+                brick.destroyBrick();
                 break;
             }
         }
@@ -194,6 +189,14 @@ public class Ball extends Entity {
         return new Rectangle(position.getX().intValue() + 12, position.getY().intValue() + 12, 8, 8);
     }
 
+    public void setHorizontalDirection(Direction horizontalDirection) {
+        this.horizontalDirection = horizontalDirection;
+    }
+
+    public void setVerticalDirection(Direction verticalDirection) {
+        this.verticalDirection = verticalDirection;
+    }
+
     public Direction getHorizontalDirection() {
         return horizontalDirection;
     }
@@ -204,5 +207,9 @@ public class Ball extends Entity {
 
     public Generic2D<Double> getPosition() {
         return position;
+    }
+
+    public Generic2D<Double> getDefaultVelocity() {
+        return defaultVelocity;
     }
 }

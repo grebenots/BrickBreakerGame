@@ -35,7 +35,8 @@ public class BrickBBBreaker {
         MENU,
         GAME,
         PAUSED,
-        LOADLEVEL
+        LOADLEVEL,
+        DEBUG
     }
 
     // Current Game State
@@ -102,6 +103,47 @@ public class BrickBBBreaker {
         ball = new Ball();
         AddDebugLog("Initialized Components", true);
     }
+
+    public void enterState(GameState targetState) {
+        switch(targetState) {
+            case MENU:
+                enterMainMenu();
+                break;
+            case GAME:
+                enterGame();
+                break;
+            case LOADLEVEL:
+                enterLoadLevel();
+                break;
+        }
+    }
+
+    private void enterMainMenu() {
+
+    }
+
+    private void enterLoadLevel() {
+        loadLevelUI.resetState();
+        currentState = GameState.LOADLEVEL;
+    }
+
+    private void enterGame() {
+        player.getVelocity().set(0.0, 0.0);
+        player.setIsShooting(false);
+        player.setHorizontalDirection(Entity.Direction.NONE);
+
+        ball.getVelocity().set(0.0, 0.0);
+        ball.setVerticalDirection(Entity.Direction.UP);
+        ball.setHorizontalDirection(Entity.Direction.RIGHT);
+
+        ball.getPosition().set(player.getPosition().getX(), player.getPosition().getY() - 16);
+        ball.getVelocity().setX(ball.getDefaultVelocity().getX());
+        ball.getVelocity().setY(ball.getDefaultVelocity().getY());
+        currentState = GameState.GAME;
+    }
+
+
+
 
 
     public GameController getGameController() {

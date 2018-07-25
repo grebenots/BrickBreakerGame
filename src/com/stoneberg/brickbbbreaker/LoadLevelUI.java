@@ -19,6 +19,14 @@ public class LoadLevelUI extends UI {
         timerEnd = 3.0;
     }
 
+    public void resetState() {
+        currentAlpha = 1.0f;
+        flickeringDown = true;
+        flickerSpeed = .005f;
+        timerCurrent = 0.0;
+        timerEnd = 3.0;
+    }
+
     public void render() {
         theStinkyCheese = BrickBBBreaker.getCurrentGame();
 
@@ -35,7 +43,7 @@ public class LoadLevelUI extends UI {
 
         if(timerCurrent >= timerEnd) {
             theStinkyCheese.getBall().beginLevel();
-            theStinkyCheese.setCurrentState(BrickBBBreaker.GameState.GAME);  // Change to an "enter function that resides in BBBrickbreaker
+            theStinkyCheese.enterState(BrickBBBreaker.GameState.GAME);
         }
 
     }

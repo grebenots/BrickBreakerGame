@@ -1,6 +1,10 @@
 package com.stoneberg.brickbbbreaker;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
 import java.awt.*;
+import java.io.File;
 import java.util.Random;
 
 public class Brick extends Entity {
@@ -9,6 +13,9 @@ public class Brick extends Entity {
     private Generic2D<Integer> wallCoordinate;
     private BrickType brickType;
     private String brickName;
+
+    private Clip breakClip;
+    private File breakFile;
 
     public enum BrickType {
         BLUE,
@@ -30,6 +37,15 @@ public class Brick extends Entity {
 
         position.setX(wallCoordinate.getX().doubleValue() * theStinkyCheese.SPRITE_SIZE.getX());
         position.setY(wallCoordinate.getY().doubleValue() * theStinkyCheese.SPRITE_SIZE.getY() / 2);
+
+        try {
+            breakClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            breakFile = new File("src/resources/break.wav");
+
+            breakClip.open(AudioSystem.getAudioInputStream(breakFile));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setBrickType(BrickType brickType) {
@@ -116,6 +132,13 @@ public class Brick extends Entity {
     public void render() {
         updateTheCheese();
         theStinkyCheese.getGameUI().drawBrickByCoordinate(brickName, wallCoordinate.getX(), wallCoordinate.getY());
+    }
+
+    public void destroyBrick() {
+        breakClip.setFramePosition(0);
+        breakClip.loop(0);
+        breakClip.start();
+        theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel()).removeBrick(wallCoordinate);
     }
 
     public Rectangle bounds() {
