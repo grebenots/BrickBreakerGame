@@ -25,7 +25,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.Map;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -35,28 +34,24 @@ public class ApplicationEntry extends Canvas implements Runnable {
     // Threading
     private boolean running = false;
     private Thread thread;
-    private int refreshRate;
 
     // Singleton game instance
     private BrickBBBreaker theStinkyCheese;
 
     // Application entry point
     public static void main(String[] args) {
-        // Application instance
-        ApplicationEntry application = new ApplicationEntry();
-
-        // Initialize input controller
+        ApplicationEntry application = new ApplicationEntry();  // Application instance
         application.addKeyListener(application.theStinkyCheese.getInputController());
 
         // Configure the game game window
-        application.setPreferredSize(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE)));
-        application.setMaximumSize(new Dimension(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE))));
-        application.setMinimumSize(new Dimension(new Dimension((int)(application.theStinkyCheese.WINDOW_SIZE.getX() * application.theStinkyCheese.SCALE), (int)(application.theStinkyCheese.WINDOW_SIZE.getY() * application.theStinkyCheese.SCALE))));
+        application.setPreferredSize(new Dimension((int)(BrickBBBreaker.WINDOW_SIZE.getX() * BrickBBBreaker.SCALE), (int)(BrickBBBreaker.WINDOW_SIZE.getY() * BrickBBBreaker.SCALE)));
+        application.setMaximumSize(new Dimension(new Dimension((int)(BrickBBBreaker.WINDOW_SIZE.getX() * BrickBBBreaker.SCALE), (int)(BrickBBBreaker.WINDOW_SIZE.getY() * BrickBBBreaker.SCALE))));
+        application.setMinimumSize(new Dimension(new Dimension((int)(BrickBBBreaker.WINDOW_SIZE.getX() * BrickBBBreaker.SCALE), (int)(BrickBBBreaker.WINDOW_SIZE.getY() * BrickBBBreaker.SCALE))));
 
-        JFrame frame = new JFrame(application.theStinkyCheese.TITLE);
+        JFrame frame = new JFrame(BrickBBBreaker.TITLE);
         frame.add(application);
         frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -65,11 +60,10 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     private ApplicationEntry() {
-        // Initialize the singleton game instance
-        theStinkyCheese = BrickBBBreaker.getCurrentGame();
+        theStinkyCheese = BrickBBBreaker.getCurrentGame();  // Initialize the singleton game instance
     }
 
-    // All ticking
+    // All ticking goes here
     private void tick() {
 
         switch(theStinkyCheese.getCurrentState()) {  // Begin State Machine
@@ -96,17 +90,8 @@ public class ApplicationEntry extends Canvas implements Runnable {
         // Tick player
         theStinkyCheese.getPlayer().tick();
 
-        // Tick bricks
-
-
         // Tick ball
         theStinkyCheese.getBall().tick();
-
-
-        // Tick More Stuff...
-
-
-
     }
 
     private void tickPauseState() {
@@ -117,9 +102,10 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
     }
 
-    // All rendering
+    // All rendering goes here
     private void render() {
 
+        // Triple graphics buffering
         BufferStrategy bs = this.getBufferStrategy();
 
         if (bs == null) {
@@ -127,9 +113,10 @@ public class ApplicationEntry extends Canvas implements Runnable {
             return;
         }
 
+        // Set background to black
         theStinkyCheese.setGraphics(bs.getDrawGraphics());
-        BufferedImage blackBackground = new BufferedImage(theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
-        theStinkyCheese.getGraphics().drawImage(blackBackground, 0, 0, theStinkyCheese.WINDOW_SIZE.getX().intValue(), theStinkyCheese.WINDOW_SIZE.getY().intValue(),null);
+        BufferedImage blackBackground = new BufferedImage(BrickBBBreaker.WINDOW_SIZE.getX().intValue(), BrickBBBreaker.WINDOW_SIZE.getY().intValue(), BufferedImage.TYPE_INT_RGB);
+        theStinkyCheese.getGraphics().drawImage(blackBackground, 0, 0, BrickBBBreaker.WINDOW_SIZE.getX().intValue(), BrickBBBreaker.WINDOW_SIZE.getY().intValue(),null);
 
         //  All additional rendering goes here
         switch(theStinkyCheese.getCurrentState()) {  // Begin State Machine
@@ -157,18 +144,9 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     private void renderGameState() {
-        // Render UI
         theStinkyCheese.getGameUI().render();
-
-        // Render player
         theStinkyCheese.getPlayer().render();
-
-        // Render ball
         theStinkyCheese.getBall().render();
-
-
-        // Render More Stuff...
-
     }
 
     private void renderPauseState() {
@@ -176,16 +154,13 @@ public class ApplicationEntry extends Canvas implements Runnable {
     }
 
     private void renderLoadLevelState() {
-        // Render UI
         theStinkyCheese.getLoadLevelUI().render();
-
-        // Render player
         theStinkyCheese.getPlayer().render();
     }
 
 
-    private void init() {  // NOT DONE
-        requestFocus();  // NOT DONE
+    private void init() {
+        requestFocus();
         detectRefreshRate();
     }
 
@@ -199,11 +174,11 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
             refreshRate = dm.getRefreshRate();
             if (refreshRate == DisplayMode.REFRESH_RATE_UNKNOWN) {
-                System.out.println("Unknown rate");
+                System.out.println("Unknown refresh rate detected.  Using 60 Hz as a default.");
                 return 60.0;
             }
         }
-        System.out.println("Refresh is " + refreshRate);
+        System.out.println("Refresh rate detected:  " + refreshRate + " Hz");
         return refreshRate;
     }
 
@@ -234,7 +209,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
         init();
         long lastTime = System.nanoTime();
         //final double targetFPS = detectRefreshRate();
-        final double targetFPS = 60;
+        final double targetFPS = 60;  // Hard locking FPS because the game is very tough on my 144hz monitor
         double ns = 1000000000 / targetFPS;
         double delta = 0;
         int updates = 0;
@@ -242,7 +217,6 @@ public class ApplicationEntry extends Canvas implements Runnable {
         long timer = System.currentTimeMillis();
 
         while (running) {
-            // trackFPS();
 
             /* The following section of code limits updating to the target frames per second */
             long now = System.nanoTime();
@@ -267,5 +241,4 @@ public class ApplicationEntry extends Canvas implements Runnable {
         }
         stop();
     }
-
 }

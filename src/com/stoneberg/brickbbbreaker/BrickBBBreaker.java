@@ -102,7 +102,6 @@ public class BrickBBBreaker {
         loadLevelUI = new LoadLevelUI();
         player = new Player(WINDOW_CENTER.getX() - SPRITE_SIZE.getX() / 2, WINDOW_SIZE.getY() - SPRITE_SIZE.getY());
         ball = new Ball();
-        AddDebugLog("Initialized Components", true);
     }
 
     public void enterState(GameState targetState) {
@@ -205,8 +204,6 @@ public class BrickBBBreaker {
 
     private void sayHello() {
         System.out.println("BrickBBBreaker Singleton says Hello World!");
-
-        AddDebugLog("Said Hello World", true);
     }
 
     private void initLevels() {
@@ -222,17 +219,5 @@ public class BrickBBBreaker {
         }
 
         levels.put(0, level);
-    }
-
-    public void AddDebugLog(String message) {
-        log.add(new DebugLog(message));
-    }
-
-    public void AddDebugLog(String message, boolean printToConsole) {
-        DebugLog newLog = new DebugLog(message);
-        log.add(newLog);
-
-        if(printToConsole)
-            System.out.println(newLog.getMessage() + " ::: " + newLog.getTimestamp());
     }
 }
