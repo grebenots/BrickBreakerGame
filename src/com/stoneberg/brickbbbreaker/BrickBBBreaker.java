@@ -62,13 +62,6 @@ public class BrickBBBreaker {
     // Sprite Sheets
     private SpriteSheet spriteSheet;
 
-    // Game Loop and threading
-    private boolean running = false;
-    private Thread thread;
-
-    // Debug logging
-    private LinkedList<DebugLog> log = new LinkedList<DebugLog>();
-
     private BrickBBBreaker(){}
 
     public static BrickBBBreaker getCurrentGame() {
@@ -141,14 +134,7 @@ public class BrickBBBreaker {
         ball.getVelocity().setY(ball.getDefaultVelocity().getY());
         currentState = GameState.GAME;
     }
-
-
-
-
-
-    public GameController getGameController() {
-        return gameController;
-    }
+    
 
     public InputController getInputController() {
         return inputController;
