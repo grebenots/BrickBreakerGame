@@ -33,11 +33,11 @@ public class Player extends Entity {
         x += velocity.getX();
         y += velocity.getY();
 
-        if(x <= theStinkyCheese.SPRITE_SIZE.getX() / 2 + theStinkyCheese.SPRITE_SIZE.getX())
-            x = theStinkyCheese.SPRITE_SIZE.getX() / 2 + theStinkyCheese.SPRITE_SIZE.getX();  // Restricts the player from moving off the left of screen
+        if(x <= BrickBBBreaker.SPRITE_SIZE.getX() / 2 + BrickBBBreaker.SPRITE_SIZE.getX())
+            x = BrickBBBreaker.SPRITE_SIZE.getX() / 2 + BrickBBBreaker.SPRITE_SIZE.getX();  // Restricts the player from moving off the left of screen
 
-        if(x >= theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX() * 2.5)
-            x = theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX() * 2.5;  // Restricts the player from moving off the right of screen
+        if(x >= BrickBBBreaker.WINDOW_SIZE.getX() - BrickBBBreaker.SPRITE_SIZE.getX() * 2.5)
+            x = BrickBBBreaker.WINDOW_SIZE.getX() - BrickBBBreaker.SPRITE_SIZE.getX() * 2.5;  // Restricts the player from moving off the right of screen
 
         position.set(x,y);
     }
@@ -74,13 +74,6 @@ public class Player extends Entity {
     public void modifyScore(int amount) {
         currentScore += amount;
     }
-
-
-    // Not sure if I will implement this here or not
-    //public void fireBullet() {
-        // NEED TO MOVE CODE FOR FIRING FROM THE GAME CONTROLLER TO HERE
-        //game.getGameController().addBullet(new Bullet(game.getPlayer().getPosition().getX(), game.getPlayer().getPosition().getY(), game.getEntitySheet()));
-    //}
 
 
     public Rectangle bounds() {

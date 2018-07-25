@@ -47,7 +47,6 @@ public class BrickBBBreaker {
     private Graphics graphics;
 
     // Game components
-    private GameController gameController;
     private InputController inputController;
     private MainMenuUI mainMenuUI;
     private GameUI gameUI;
@@ -87,7 +86,6 @@ public class BrickBBBreaker {
             e.printStackTrace();
         }
 
-        gameController = new GameController();
         inputController = new InputController();
         mainMenuUI = new MainMenuUI();
         gameUI = new GameUI();
@@ -134,7 +132,7 @@ public class BrickBBBreaker {
         ball.getVelocity().setY(ball.getDefaultVelocity().getY());
         currentState = GameState.GAME;
     }
-    
+
 
     public InputController getInputController() {
         return inputController;
