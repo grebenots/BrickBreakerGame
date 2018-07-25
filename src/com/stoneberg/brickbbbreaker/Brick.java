@@ -15,7 +15,6 @@ public class Brick extends Entity {
     private String brickName;
 
     private Clip breakClip;
-    private File breakFile;
 
     private int pointValue;
 
@@ -38,12 +37,12 @@ public class Brick extends Entity {
         wallCoordinate = new Generic2D<>(x,y);
         setBrickType(brickType);
 
-        position.setX(wallCoordinate.getX().doubleValue() * theStinkyCheese.SPRITE_SIZE.getX());
-        position.setY(wallCoordinate.getY().doubleValue() * theStinkyCheese.SPRITE_SIZE.getY() / 2);
+        position.setX(wallCoordinate.getX().doubleValue() * BrickBBBreaker.SPRITE_SIZE.getX());
+        position.setY(wallCoordinate.getY().doubleValue() * BrickBBBreaker.SPRITE_SIZE.getY() / 2);
 
         try {
             breakClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            breakFile = new File("src/resources/break.wav");
+            File breakFile = new File("src/resources/break.wav");
 
             breakClip.open(AudioSystem.getAudioInputStream(breakFile));
         } catch(Exception e) {
