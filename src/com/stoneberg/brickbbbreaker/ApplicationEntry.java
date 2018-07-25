@@ -26,12 +26,16 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Map;
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 public class ApplicationEntry extends Canvas implements Runnable {
 
     // Threading
     private boolean running = false;
     private Thread thread;
+    private int refreshRate;
 
     // Singleton game instance
     private BrickBBBreaker theStinkyCheese;
@@ -182,7 +186,27 @@ public class ApplicationEntry extends Canvas implements Runnable {
 
     private void init() {  // NOT DONE
         requestFocus();  // NOT DONE
+        detectRefreshRate();
     }
+
+    private double detectRefreshRate() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+
+        int refreshRate = 60;
+        for (int i = 0; i < gs.length; i++) {
+            DisplayMode dm = gs[i].getDisplayMode();
+
+            refreshRate = dm.getRefreshRate();
+            if (refreshRate == DisplayMode.REFRESH_RATE_UNKNOWN) {
+                System.out.println("Unknown rate");
+                return 60.0;
+            }
+        }
+        System.out.println("Refresh is " + refreshRate);
+        return refreshRate;
+    }
+
 
     private synchronized void start() {
         if (running)
@@ -209,7 +233,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
     public void run() {
         init();
         long lastTime = System.nanoTime();
-        final double targetFPS = 120.0;
+        final double targetFPS = detectRefreshRate();
         double ns = 1000000000 / targetFPS;
         double delta = 0;
         int updates = 0;
