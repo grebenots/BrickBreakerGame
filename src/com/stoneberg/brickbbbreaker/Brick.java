@@ -129,11 +129,10 @@ public class Brick extends Entity {
     }
 
     public void tick() {
-        updateTheCheese();
+
     }
 
     public void render() {
-        updateTheCheese();
         theStinkyCheese.getGameUI().drawBrickByCoordinate(brickName, wallCoordinate.getX(), wallCoordinate.getY());
     }
 

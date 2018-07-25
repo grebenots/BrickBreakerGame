@@ -26,7 +26,6 @@ public class Player extends Entity {
     }
 
     public void tick() {
-        updateTheCheese();
 
         double x = position.getX();
         double y = position.getY();
@@ -44,7 +43,6 @@ public class Player extends Entity {
     }
 
     public void render() {
-        updateTheCheese();
 
         double x = position.getX();
         double y = position.getY();

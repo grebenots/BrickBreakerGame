@@ -1,7 +1,5 @@
 package com.stoneberg.brickbbbreaker;
 
-import com.sun.tools.javah.Gen;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
@@ -18,9 +16,7 @@ public class Ball extends Entity {
     private Generic2D<Double> maxVelocity;
 
     private Clip bounceClip;
-    private File bounceFile;
     private Clip deathClip;
-    private File deathFile;
 
     public Ball() {
         super();
@@ -36,9 +32,9 @@ public class Ball extends Entity {
 
         try {
             bounceClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            bounceFile = new File("src/resources/bounce.wav");
             deathClip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            deathFile = new File("src/resources/death.wav");
+            File bounceFile = new File("src/resources/bounce.wav");
+            File deathFile = new File("src/resources/death.wav");
 
             bounceClip.open(AudioSystem.getAudioInputStream(bounceFile));
             deathClip.open(AudioSystem.getAudioInputStream(deathFile));
@@ -47,15 +43,7 @@ public class Ball extends Entity {
         }
     }
 
-    public void beginLevel() {
-        Generic2D<Double> playerPosition = theStinkyCheese.getPlayer().getPosition();
-        position.set(playerPosition.getX(), playerPosition.getY() - 16);
-        velocity = new Generic2D<Double>(defaultVelocity.getX(), defaultVelocity.getY());
-    }
-
-
     public void tick() {
-        updateTheCheese();
 
         double x = position.getX();
         double y = position.getY();
@@ -64,8 +52,8 @@ public class Ball extends Entity {
         y += velocity.getY();
 
         if(horizontalDirection == Direction.LEFT) {
-            if (x <= theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4) {
-                x = theStinkyCheese.SPRITE_SIZE.getX() / 2 + 4;
+            if (x <= BrickBBBreaker.SPRITE_SIZE.getX() / 2 + 4) {
+                x = BrickBBBreaker.SPRITE_SIZE.getX() / 2 + 4;
                 horizontalDirection = Direction.RIGHT;
                 velocity.setX(velocity.getX() * -1);
 
@@ -76,8 +64,8 @@ public class Ball extends Entity {
         }
 
         if(horizontalDirection == Direction.RIGHT) {
-            if (x >= theStinkyCheese.WINDOW_SIZE.getX() - theStinkyCheese.SPRITE_SIZE.getX() * 1.5 - 4) {
-                x = theStinkyCheese.WINDOW_SIZE.getX()  - theStinkyCheese.SPRITE_SIZE.getX() * 1.5 - 4;
+            if (x >= BrickBBBreaker.WINDOW_SIZE.getX() - BrickBBBreaker.SPRITE_SIZE.getX() * 1.5 - 4) {
+                x = BrickBBBreaker.WINDOW_SIZE.getX()  - BrickBBBreaker.SPRITE_SIZE.getX() * 1.5 - 4;
                 horizontalDirection = Direction.LEFT;
                 velocity.setX(velocity.getX() * -1);
 
@@ -88,8 +76,8 @@ public class Ball extends Entity {
         }
 
         if(verticalDirection == Direction.UP) {
-            if (y <= theStinkyCheese.SPRITE_SIZE.getY() * 1.5 + 4) {
-                y = theStinkyCheese.SPRITE_SIZE.getY() * 1.5 + 4;
+            if (y <= BrickBBBreaker.SPRITE_SIZE.getY() * 1.5 + 4) {
+                y = BrickBBBreaker.SPRITE_SIZE.getY() * 1.5 + 4;
                 verticalDirection = Direction.DOWN;
                 velocity.setY(velocity.getY() * -1);
 
@@ -100,7 +88,7 @@ public class Ball extends Entity {
         }
 
         if(verticalDirection == Direction.DOWN) {
-            if (y >= theStinkyCheese.WINDOW_SIZE.getY() + theStinkyCheese.SPRITE_SIZE.getY()) {
+            if (y >= BrickBBBreaker.WINDOW_SIZE.getY() + BrickBBBreaker.SPRITE_SIZE.getY()) {
 
                 deathClip.setFramePosition(0);
                 deathClip.loop(0);
@@ -129,6 +117,7 @@ public class Ball extends Entity {
             double newX = x;
             double newY = y * -1;
 
+            // Some calculations for hitting the ball at a skewed angle, based on player velocity
             if(getHorizontalDirection() == theStinkyCheese.getPlayer().getHorizontalDirection()) {
                 newX *= ease > 0.5 ? ((ease / 1.0) * 2.5) : 1;
             } else {
@@ -152,16 +141,14 @@ public class Ball extends Entity {
             velocity.set(newX, newY);
             position.setY(theStinkyCheese.getPlayer().getPosition().getY() - 8);
             verticalDirection = verticalDirection == Direction.DOWN ? Direction.UP : Direction.DOWN;
-
         }
 
         // Check for bricks
         Level currentLevel = theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel());
         Map<Generic2D<Integer>, Brick> currentBricks = currentLevel.getBricks();
 
-        for(Generic2D<Integer> key : currentBricks.keySet()) {
+        for(Generic2D<Integer> key : currentBricks.keySet()) {  // Don't love this method of detection.
             Brick brick = currentBricks.get(key);
-            Generic2D<Integer> currentCoordinate = brick.getWallCoordinate();
 
             if(bounds().intersects(brick.bounds())) {
                 velocity.setY(velocity.getY() * -1);
@@ -173,7 +160,6 @@ public class Ball extends Entity {
     }
 
     public void render() {
-        updateTheCheese();
 
         double x = position.getX();
         double y = position.getY();
