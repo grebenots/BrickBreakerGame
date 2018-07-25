@@ -179,10 +179,6 @@ public class Ball extends Entity {
         double y = position.getY();
 
         theStinkyCheese.getGraphics().drawImage(sprites.get("ballSmall"), (int)x, (int)y, null);
-
-        Rectangle rect = bounds();
-        theStinkyCheese.getGraphics().setColor(Color.RED);
-        theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     public Rectangle bounds() {

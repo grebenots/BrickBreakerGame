@@ -52,10 +52,6 @@ public class Player extends Entity {
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleLeft"), (int)x - 32, (int)y, null);
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleCenter"),(int)x,(int)y,null);
         theStinkyCheese.getGraphics().drawImage(sprites.get("paddleRight"), (int)x + 32, (int)y, null);
-
-        Rectangle rect = bounds();
-        theStinkyCheese.getGraphics().setColor(Color.RED);
-        theStinkyCheese.getGraphics().drawRect(rect.x, rect.y, rect.width, rect.height);
     }
 
     public void moveLeft() {
