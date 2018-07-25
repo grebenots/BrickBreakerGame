@@ -209,7 +209,7 @@ public class ApplicationEntry extends Canvas implements Runnable {
     public void run() {
         init();
         long lastTime = System.nanoTime();
-        final double targetFPS = 60.0;
+        final double targetFPS = 120.0;
         double ns = 1000000000 / targetFPS;
         double delta = 0;
         int updates = 0;

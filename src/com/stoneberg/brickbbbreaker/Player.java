@@ -77,6 +77,10 @@ public class Player extends Entity {
         numLives--;
     }
 
+    public void modifyScore(int amount) {
+        currentScore += amount;
+    }
+
 
     // Not sure if I will implement this here or not
     //public void fireBullet() {

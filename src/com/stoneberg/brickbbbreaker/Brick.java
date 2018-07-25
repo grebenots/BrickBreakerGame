@@ -17,6 +17,8 @@ public class Brick extends Entity {
     private Clip breakClip;
     private File breakFile;
 
+    private int pointValue;
+
     public enum BrickType {
         BLUE,
         GREEN,
@@ -32,6 +34,7 @@ public class Brick extends Entity {
 
     public Brick(int x, int y, BrickType brickType) {
         super();
+        pointValue = 25;
         wallCoordinate = new Generic2D<>(x,y);
         setBrickType(brickType);
 
@@ -138,6 +141,7 @@ public class Brick extends Entity {
         breakClip.setFramePosition(0);
         breakClip.loop(0);
         breakClip.start();
+        theStinkyCheese.getPlayer().modifyScore(pointValue);
         theStinkyCheese.getLevels().get(theStinkyCheese.getPlayer().getCurrentLevel()).removeBrick(wallCoordinate);
     }
 

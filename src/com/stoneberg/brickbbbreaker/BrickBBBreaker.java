@@ -36,6 +36,7 @@ public class BrickBBBreaker {
         GAME,
         PAUSED,
         LOADLEVEL,
+        GAMEOVER,
         DEBUG
     }
 
