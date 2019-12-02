@@ -1,8 +1,4 @@
 /*  Tim Stoneberg
-    COMP 170, Intro to Object Oriented Programming
-
-    or as I like to call it, "Learning to make cars, and trucks, and boats out of generic vehicle Play-Doh 101"
-
     Loyola University Chicago
     Summer Semester 2018
     Final Project
